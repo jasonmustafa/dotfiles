@@ -1,9 +1,6 @@
 ### DECORATION ###
 
-{{- /* fastfetch on start breaks cursor in WSL2 */}}
-{{- if not (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
 fastfetch
-{{- end }}
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -18,15 +15,12 @@ export EDITOR="nvim"
 
 ### PATH LOCATIONS ###
 
-COMPLETIONS="${HOME}/.zsh/zsh-completions/src"
-DOT_NET_TOOLS="${HOME}/.dotnet/tools"
-POWERLEVEL10K="${HOME}/powerlevel10k/powerlevel10k.zsh-theme"
-SNAP="/snap/bin"
+COMPLETIONS="usr/share/zsh/site-functions"
+POWERLEVEL10K="/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme"
 
-AUTOSUGGESTIONS="${HOME}/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
-FAST_SYNTAX_HIGHLIGHTING="${HOME}/.zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
-FZF="${HOME}/.fzf.zsh"
-FZF_TAB="${HOME}/.zsh/fzf-tab/fzf-tab.plugin.zsh"
+AUTOSUGGESTIONS="usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+FAST_SYNTAX_HIGHLIGHTING="/usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
+FZF_TAB="/usr/share/zsh/plugins/fzf-tab-git/fzf-tab.plugin.zsh"
 
 ### ALIASES ###
 
@@ -37,23 +31,10 @@ alias v='nvim'
 alias vi='nvim'
 alias vim='nvim'
 
-# WSL2 support for DRP
-{{- if eq .chezmoi.hostname "lumbridge" }}
-source ~/.zsh/functions/nvim-wsl.zsh
-{{- end }}
-
 ### PATH ###
 
 if [[ -d "${HOME}/.local/bin" ]] ;
   then path+="${HOME}/.local/bin"
-fi
-
-if [[ -d $DOT_NET_TOOLS ]] ;
-  then path+=$DOT_NET_TOOLS
-fi
-
-if [[ -d $SNAP ]] ;
-  then path+=$SNAP
 fi
 
 ### SOURCE ###
@@ -69,7 +50,7 @@ fi
 # Load completions
 autoload -U compinit; compinit
 
-[[ -f $FZF ]] && source $FZF
+source <(fzf --zsh)
 [[ -f $FZF_TAB ]] && source $FZF_TAB
 
 # Case insensitive matching (lowercase to anycase)
