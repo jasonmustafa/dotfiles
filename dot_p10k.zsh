@@ -122,6 +122,7 @@
   typeset -g POWERLEVEL9K_MODE=nerdfont-v3
   # When set to `moderate`, some icons will have an extra space after them. This is meant to avoid
   # icon overlap when using non-monospace fonts. When set to `none`, spaces are not added.
+  # typeset -g POWERLEVEL9K_ICON_PADDING=moderate
   typeset -g POWERLEVEL9K_ICON_PADDING=none
 
   # When set to true, icons appear before content on both sides of the prompt. When set
@@ -221,6 +222,7 @@
 
   ##################################[ dir: current directory ]##################################
   # Current directory background color.
+  # typeset -g POWERLEVEL9K_DIR_BACKGROUND='#99a3ff'  # Bold lavender
   typeset -g POWERLEVEL9K_DIR_BACKGROUND=4
   # Default current directory foreground color.
   typeset -g POWERLEVEL9K_DIR_FOREGROUND=254
@@ -361,6 +363,7 @@
 
   #####################################[ vcs: git status ]######################################
   # Version control background colors.
+  # typeset -g POWERLEVEL9K_VCS_CLEAN_BACKGROUND='#c089fa'
   typeset -g POWERLEVEL9K_VCS_CLEAN_BACKGROUND=2
   typeset -g POWERLEVEL9K_VCS_MODIFIED_BACKGROUND=3
   typeset -g POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND=2
