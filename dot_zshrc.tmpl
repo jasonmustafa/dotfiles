@@ -20,7 +20,7 @@ POWERLEVEL10K="/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme"
 
 AUTOSUGGESTIONS="usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 FAST_SYNTAX_HIGHLIGHTING="/usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
-FZF_TAB="/usr/share/zsh/plugins/fzf-tab-git/fzf-tab.plugin.zsh"
+FZF_TAB="$HOME/git/fzf-tab/fzf-tab.plugin.zsh"
 
 ### ALIASES ###
 
@@ -32,11 +32,6 @@ alias vi='nvim'
 alias vim='nvim'
 
 ### PATH ###
-
-### SOURCE ###
-
-[[ -f $AUTOSUGGESTIONS ]] && source $AUTOSUGGESTIONS
-[[ -f $FAST_SYNTAX_HIGHLIGHTING ]] && source $FAST_SYNTAX_HIGHLIGHTING
 
 ### COMPLETIONS ###
 
@@ -74,6 +69,11 @@ _fzf_compgen_path() {
 _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
+
+### SOURCE ###
+
+[[ -f $AUTOSUGGESTIONS ]] && source $AUTOSUGGESTIONS
+[[ -f $FAST_SYNTAX_HIGHLIGHTING ]] && source $FAST_SYNTAX_HIGHLIGHTING
 
 ### PROMPT ###
 
