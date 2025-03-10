@@ -1,3 +1,6 @@
+# Zsh Config File
+# Jason Mustafa (https://www.jasonmustafa.com/)
+
 ### DECORATION ###
 
 fastfetch
@@ -15,10 +18,10 @@ export EDITOR="nvim"
 
 ### PATH LOCATIONS ###
 
-COMPLETIONS="usr/share/zsh/site-functions"
+COMPLETIONS="/usr/share/zsh/site-functions"
 POWERLEVEL10K="/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme"
 
-AUTOSUGGESTIONS="usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+AUTOSUGGESTIONS="/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 FAST_SYNTAX_HIGHLIGHTING="/usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
 FZF_TAB="$HOME/git/fzf-tab/fzf-tab.plugin.zsh"
 
@@ -38,12 +41,7 @@ alias vim='nvim'
 # Set completions directory
 [[ -d $COMPLETIONS  ]] && fpath=($COMPLETIONS $fpath)
 
-# Load completions
-autoload -U compinit; compinit
-
-source <(fzf --zsh)
-[[ -f $FZF_TAB ]] && source $FZF_TAB
-
+zstyle :compinstall filename "$HOME/.zshrc"
 # Case insensitive matching (lowercase to anycase)
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 # Disable sort when completing git checkout
@@ -59,6 +57,12 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza -1 --color=always $real
 zstyle ':fzf-tab:*' fzf-flags --color=fg:1,fg+:2 --bind=tab:accept
 # Make fzf-tab follow FZF_DEFAULT_OPTS
 zstyle ':fzf-tab:*' use-fzf-default-opts yes
+
+# Load completions
+autoload -U compinit; compinit
+
+source <(fzf --zsh)
+[[ -f $FZF_TAB ]] && source $FZF_TAB
 
 # Use fd for listing path candidates
 _fzf_compgen_path() {
@@ -85,9 +89,10 @@ _fzf_compgen_dir() {
 
 ### OTHER ###
 
+bindkey -e
 HYPHEN_INSENSITIVE="true"
 HISTSIZE=10000
-HISTFILE="${HOME}/.zsh_history"
+HISTFILE="${HOME}/.histfile"
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
 
