@@ -1,0 +1,16 @@
+/**
+ * Rofi Catppuccin Mocha Colors
+ * Author: Jason Mustafa (https://www.jasonmustafa.com/)
+ * Modified from: Aditya Shakya (https://github.com/adi1090x)
+ * Catppuccin: https://catppuccin.com/
+ **/
+
+* {
+    background:     #1e1e2e80;
+    background-alt: #31324480;
+    foreground:     #cdd6f4ff;
+    selected:       #cba6f7ff;
+    active:         #b4befeff;
+    urgent:         #c089faff;
+}
+
