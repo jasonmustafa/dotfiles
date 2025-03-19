@@ -6,35 +6,35 @@
 {
     "layer": "top",
     "position": "top",
-    "modules-left": ["hyprland/workspaces"],
-    "modules-center": ["custom/music"],
-    "modules-right": ["pulseaudio", "clock", "tray", "custom/lock", "custom/power"],
-    "hyprland/workspaces": {
-         "disable-scroll": true,
-         "sort-by-name": true,
-         "format": " {icon} ",
-         "format-icons": {
-             "default": "",
-         },
-     },
-    "tray": {
+    "modules-left": ["custom/os", "hyprland/window", "custom/music"],
+    "modules-center": ["hyprland/workspaces"],
+    "modules-right": ["pulseaudio", "network", "group/time", "tray", "group/session"],
+    "custom/os": {
+        "format": "",
+        "tooltip": false
+    },
+    "hyprland/window": {
+        "format": "{class}",
+        "icon": true,
         "icon-size": 21,
-        "spacing": 10
+	"tooltip": false
     },
     "custom/music": {
-        "format": "  {}",
+        "format": " {}",
         "escape": true,
         "interval": 5,
         "tooltip": false,
-        "exec": "playerctl --player=spotify metadata --format='{{ artist }} - {{ title }}'",
+        "exec": "playerctl --player=spotify metadata --format='{{ title }}'",
         "on-click": "playerctl --player=spotify play-pause",
         "max-length": 50
     },
-    "clock": {
-        "timezone": "America/Los_Angeles",
-        "tooltip-format": "<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%d/%m/%Y}",
-        "format": "{:%H:%M}"
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "sort-by-name": true,
+        "format": " {icon} ",
+        "format-icons": {
+            "default": ""
+        }
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",
@@ -42,7 +42,35 @@
         "format-icons": {
             "default": ["", "", " "]
         },
-        "on-click": "pavucontrol"
+        "on-click": "pavucontrol",
+        "tooltip": false
+    },
+    "network": {
+        "format-wifi": "{icon}",
+        "format-icons": ["󰤟", "󰤢", "󰤥", "󰤨"],
+        "format-ethernet": "󰈀",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "",
+        "tooltip-format-wifi": "{essid}\nSignal Strenght: {signalStrength}%"
+    },
+    "clock": {
+        "timezone": "America/Los_Angeles",
+        "tooltip-format": "<big>{:%A}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": "{:%m/%d/%Y}",
+        "format": "{:%b %d}"
+    },
+    "custom/clock": {
+        "exec": "date +\"%-I:%M\"",
+        "interval": 1,
+        "tooltip": false
+    },
+    "group/time": {
+        "orientation": "horizontal",
+        "modules": ["clock", "custom/clock"]
+    },
+    "tray": {
+        "icon-size": 21,
+        "spacing": 10
     },
     "custom/lock": {
         "tooltip": false,
@@ -53,6 +81,10 @@
         "tooltip": false,
         "on-click": "wlogout &",
         "format": "⏻"
+    },
+    "group/session": {
+        "orientation": "horizontal",
+        "modules": ["custom/lock", "custom/power"]
     }
 }
 

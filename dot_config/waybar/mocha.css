@@ -1,4 +1,7 @@
-/* Original: Catppuccin for Waybar (https://github.com/catppuccin/waybar) */
+/*
+ * Author: Jason Mustafa (https://www.jasonmustafa.com/)
+ * Modified from: Catppuccin for Waybar (https://github.com/catppuccin/waybar)
+ */
 
 @define-color rosewater #f5e0dc;
 @define-color flamingo #f2cdcd;
@@ -23,6 +26,7 @@
 @define-color surface2 #585b70;
 @define-color surface1 #45475a;
 @define-color surface0 #313244;
+@define-color surface0t rgba(49, 50, 68, 0.5);
 @define-color base #1e1e2e;
 @define-color mantle #181825;
 @define-color crust #11111b;

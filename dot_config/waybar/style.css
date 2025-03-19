@@ -18,15 +18,23 @@
   margin: 5px 5px;
 }
 
+tooltip {
+  border-radius: 1rem;
+  background: @surface0;
+}
+
+tooltip label {
+  color: @text;
+}
+
 #workspaces {
   border-radius: 1rem;
   margin: 5px;
-  background-color: @surface0;
-  margin-left: 1rem;
+  background-color: @surface0t;
 }
 
 #workspaces button {
-  color: @lavender;
+  color: @mauve;
   border-radius: 1rem;
   padding: 0.4rem;
 }
@@ -41,47 +49,62 @@
   border-radius: 1rem;
 }
 
+#custom-os,
+#window,
 #custom-music,
-#tray,
-#clock,
 #pulseaudio,
-#custom-lock,
-#custom-power {
-  background-color: @surface0;
+#network,
+#time,
+#tray,
+#session {
+  background-color: @surface0t;
   padding: 0.5rem 1rem;
-  margin: 5px 0;
+  margin: 5px 0.5rem;
+  border-radius: 1rem;
 }
 
-#clock {
-  color: @blue;
-  border-radius: 0px 1rem 1rem 0px;
-  margin-right: 1rem;
+#custom-os {
+  color: @mauve;
+  margin-left: 1rem; /* left of bar */
+}
+
+#window {
+  color: @text;
+}
+
+#custom-music {
+  color: @lavender;
 }
 
 #pulseaudio {
   color: @maroon;
-  border-radius: 1rem 0px 0px 1rem;
-  margin-left: 1rem;
 }
 
-#custom-music {
-  color: @mauve;
-  border-radius: 1rem;
+#network {
+  color: @peach;
+}
+
+#clock {
+  color: @blue;
+  margin-right: 0.5rem; /* left of group */
+}
+
+#custom-clock {
+  color: @lavender;
+  margin-left: 0.5rem; /* right of group */
 }
 
 #custom-lock {
-    border-radius: 1rem 0px 0px 1rem;
-    color: @lavender;
+  color: @lavender;
+  margin-right: 0.5rem; /* left of group */
 }
 
 #custom-power {
-    margin-right: 1rem;
-    border-radius: 0px 1rem 1rem 0px;
-    color: @red;
+  color: @red;
+  margin-left: 0.5rem; /* right of group */
 }
 
-#tray {
-  margin-right: 1rem;
-  border-radius: 1rem;
+#session {
+  margin-right: 1rem; /* right of bar */
 }
 
