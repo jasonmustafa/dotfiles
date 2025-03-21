@@ -8,24 +8,28 @@
     "position": "top",
     "modules-left": ["custom/os", "hyprland/window", "custom/music"],
     "modules-center": ["hyprland/workspaces"],
-    "modules-right": ["pulseaudio", "network", "group/time", "tray", "group/session"],
+    "modules-right": ["custom/weather", "pulseaudio", "network", "group/time", "tray", "group/session"],
     "custom/os": {
         "format": "",
+        "on-click": "rofi -show combi",
         "tooltip": false
     },
     "hyprland/window": {
         "format": "{class}",
         "icon": true,
         "icon-size": 21,
-	"tooltip": false
+        "tooltip": false,
+        "rewrite": {
+            "": " hyprland"
+        }
     },
     "custom/music": {
         "format": " {}",
         "escape": true,
         "interval": 5,
         "tooltip": false,
-        "exec": "playerctl --player=spotify metadata --format='{{ title }}'",
-        "on-click": "playerctl --player=spotify play-pause",
+        "exec": "playerctl -p spotify metadata --format='{{ title }}'",
+        "on-click": "playerctl -p spotify play-pause",
         "max-length": 50
     },
     "hyprland/workspaces": {
@@ -35,6 +39,13 @@
         "format-icons": {
             "default": ""
         }
+    },
+    "custom/weather": {
+        "exec": "${HOME}/.config/waybar/scripts/get_weather.sh Seattle",
+        "return-type": "json",
+        "format": "{}",
+        "tooltip": true,
+        "interval": 3600
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",
@@ -56,7 +67,6 @@
     "clock": {
         "timezone": "America/Los_Angeles",
         "tooltip-format": "<big>{:%A}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%m/%d/%Y}",
         "format": "{:%b %d}"
     },
     "custom/clock": {
@@ -70,7 +80,8 @@
     },
     "tray": {
         "icon-size": 21,
-        "spacing": 10
+        "spacing": 10,
+        "show-passive-items": true
     },
     "custom/lock": {
         "tooltip": false,

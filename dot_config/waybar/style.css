@@ -52,6 +52,7 @@ tooltip label {
 #custom-os,
 #window,
 #custom-music,
+#custom-weather,
 #pulseaudio,
 #network,
 #time,
@@ -76,8 +77,12 @@ tooltip label {
   color: @lavender;
 }
 
+#custom-weather {
+  color: @yellow;
+}
+
 #pulseaudio {
-  color: @maroon;
+  color: @pink;
 }
 
 #network {
