@@ -41,7 +41,7 @@
         }
     },
     "custom/weather": {
-        "exec": "${HOME}/.config/waybar/scripts/get_weather.sh Seattle",
+        "exec": "${HOME}/.config/waybar/scripts/get_weather.sh Seattle+United+States",
         "return-type": "json",
         "format": "{}",
         "tooltip": true,
