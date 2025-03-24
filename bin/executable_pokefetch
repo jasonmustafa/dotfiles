@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#
+# Displays a random Pokémon sprite which could be shiny.
+# Author: Jason Mustafa (https://www.jasonmustafa.com/)
+
+if ! command -v pokeget >/dev/null || ! command -v fastfetch >/dev/null; then
+    echo "Error: 'pokeget' and/or 'fastfetch' are not installed." >&2
+    exit 1
+fi
+
+shiny_option=""
+if (( RANDOM % 4096 == 0 )); then
+    shiny_option="-s"
+fi
+
+# Run pokeget with the extra_flags, if any
+pokeget random $shiny_option --hide-name | fastfetch --file-raw -
+
