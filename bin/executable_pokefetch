@@ -8,11 +8,12 @@ if ! command -v pokeget >/dev/null || ! command -v fastfetch >/dev/null; then
     exit 1
 fi
 
+n_shiny=4096
+
 shiny_option=""
-if (( RANDOM % 4096 == 0 )); then
+if (( RANDOM % n_shiny == 0 )); then
     shiny_option="-s"
 fi
 
-# Run pokeget with the extra_flags, if any
 pokeget random $shiny_option --hide-name | fastfetch --file-raw -
 
