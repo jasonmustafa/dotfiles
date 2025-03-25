@@ -20,7 +20,8 @@
         "icon-size": 21,
         "tooltip": false,
         "rewrite": {
-            "": " hyprland"
+            "": " hyprland",
+            "(.*).wezterm": "WezTerm"
         }
     },
     "custom/music": {
