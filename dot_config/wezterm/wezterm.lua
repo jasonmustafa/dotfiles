@@ -6,10 +6,7 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
-config.font = wezterm.font_with_fallback({
-	{ family = "JetBrains Mono NL" },
-	{ family = "MesloLGS NF" }, -- for Powerlevel10k icons
-})
+config.font = wezterm.font("JetBrainsMonoNL Nerd Font")
 config.font_size = 15
 config.color_scheme = "Catppuccin Mocha"
 
