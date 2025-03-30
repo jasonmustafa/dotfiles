@@ -1,0 +1,17 @@
+brave-bin
+firmware-manager
+floorp-bin
+hyprshot
+mkinitcpio-firmware
+nerd-fonts-inter
+papirus-folders-catppuccin-git
+paru
+paru-debug
+pokeget
+system76-acpi-dkms
+system76-driver
+system76-power
+tmux-plugin-manager
+ttf-meslo-nerd-font-powerlevel10k
+wezterm-git
+zsh-theme-powerlevel10k-git
