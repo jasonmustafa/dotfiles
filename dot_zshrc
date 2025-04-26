@@ -1,214 +1,116 @@
 # Zsh Config File
 # Jason Mustafa (https://www.jasonmustafa.com/)
-#
-# Personal Zsh configuration file. It is strongly recommended to keep all
-# shell customization and configuration (including exported environment
-# variables such as PATH) in this file or in files sourced from it.
-#
-# Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
 
-# Periodic auto-update on Zsh startup: 'ask' or 'no'.
-# You can manually run `z4h update` to update everything.
-zstyle ':z4h:' auto-update      'ask'
-# Ask whether to auto-update this often; has no effect if auto-update is 'no'.
-zstyle ':z4h:' auto-update-days '28'
+### DECORATION ###
 
-# Keyboard type: 'mac' or 'pc'.
-zstyle ':z4h:bindkey' keyboard  'pc'
+pokefetch
 
-# Start tmux if not already in tmux.
-zstyle ':z4h:' start-tmux command tmux -u new -A -D -t "z4h" && test -v TMUX && pokefetch
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
-# Whether to move prompt to the bottom when zsh starts and on Ctrl+L.
-zstyle ':z4h:' prompt-at-bottom 'no'
+### OPTIONS ###
 
-# Mark up shell's output with semantic information.
-zstyle ':z4h:' term-shell-integration 'yes'
+bindkey -e
+HYPHEN_INSENSITIVE="true"
+HISTSIZE=10000
+HISTFILE="${HOME}/.histfile"
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
 
-# Right-arrow key accepts one character ('partial-accept') from
-# command autosuggestions or the whole thing ('accept')?
-zstyle ':z4h:autosuggestions' forward-char 'partial-accept'
-zstyle ':z4h:autosuggestions' end-of-line  'partial-accept'
+COMPLETIONS="/usr/share/zsh/site-functions"
+POWERLEVEL10K="/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme"
 
-# Make transient prompt work consistently when closing SSH connection.
-z4h bindkey z4h-eof Ctrl+D
-setopt ignore_eof
+AUTOSUGGESTIONS="/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+FAST_SYNTAX_HIGHLIGHTING="/usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
+FZF_TAB="$HOME/git/fzf-tab/fzf-tab.plugin.zsh"
 
-# Smoother rendering for two-line prompt with with empty line before it.
-POSTEDIT=$'\n\n\e[2A'
+# let hidden files be matched without specifying .
+setopt GLOB_DOTS
+# history
+setopt APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_SPACE
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_IGNORE_DUPS
+setopt HIST_FIND_NO_DUPS
 
-# Insert a newline instead of displaying secondary prompt when the currently
-# typed command is incomplete.
-z4h bindkey z4h-accept-line 'Enter'
+### PATH ###
 
-# Window title.
-zstyle ':z4h:term-title:ssh' preexec '%n@'${${${Z4H_SSH##*:}//\%/%%}:-%m}': ${1//\%/%%}'
-zstyle ':z4h:term-title:ssh' precmd  '%n@'${${${Z4H_SSH##*:}//\%/%%}:-%m}': %~'
-zstyle ':z4h:term-title:local' preexec '${1//\%/%%} %*'
-zstyle ':z4h:term-title:local' precmd  '%~'
+if [[ -d "${HOME}/bin" ]] ;
+  then path+="${HOME}/bin"
+fi
 
-# fzf directory history.
-zstyle ':z4h:fzf-dir-history' fzf-bindings tab:repeat
-zstyle ':z4h:cd-down'         fzf-bindings tab:repeat
-z4h bindkey z4h-fzf-dir-history Alt+Down
+### EXPORT ###
 
-# Recursively traverse directories when TAB-completing files.
-zstyle ':z4h:fzf-complete' recurse-dirs 'yes'
-zstyle ':z4h:fzf-complete' fzf-bindings tab:repeat
-
-# Improve completions for SSH.
-zstyle ':completion:*:ssh:argument-1:'       tag-order  hosts users
-zstyle ':completion:*:scp:argument-rest:'    tag-order  hosts files users
-zstyle ':completion:*:(ssh|scp|rdp):*:hosts' hosts
-
-# Enable direnv to automatically source .envrc files.
-zstyle ':z4h:direnv'         enable 'no'
-# Show "loading" and "unloading" notifications from direnv.
-zstyle ':z4h:direnv:success' notify 'yes'
-
-# Enable ('yes') or disable ('no') automatic teleportation of z4h over
-# SSH when connecting to these hosts.
-zstyle ':z4h:ssh:example-hostname1'   enable 'yes'
-zstyle ':z4h:ssh:*.example-hostname2' enable 'no'
-# The default value if none of the overrides above match the hostname.
-zstyle ':z4h:ssh:*'                   enable 'no'
-
-# Send these files over to the remote host when connecting over SSH to the
-# enabled hosts.
-zstyle ':z4h:ssh:*' send-extra-files '~/.nanorc' '~/.env.zsh'
-
-# Clone additional Git repositories from GitHub.
-#
-# This doesn't do anything apart from cloning the repository and keeping it
-# up-to-date. Cloned files can be used after `z4h init`. This is just an
-# example. If you don't plan to use Oh My Zsh, delete this line.
-# z4h install ohmyzsh/ohmyzsh || return
-
-# Install or update core components (fzf, zsh-autosuggestions, etc.) and
-# initialize Zsh. After this point console I/O is unavailable until Zsh
-# is fully initialized. Everything that requires user interaction or can
-# perform network I/O must be done above. Everything else is best done below.
-z4h init || return
-
-# This function is invoked by zsh4humans on every ssh command after
-# the instructions from ssh-related zstyles have been applied. It allows
-# us to configure ssh teleportation in ways that cannot be done with
-# zstyles.
-#
-# Within this function we have readonly access to the following parameters:
-#
-# - z4h_ssh_client  local hostname
-# - z4h_ssh_host    remote hostname as it was specified on the command line
-#
-# We also have read & write access to these:
-#
-# - z4h_ssh_enable          1 to use ssh teleportation, 0 for plain ssh
-# - z4h_ssh_send_files      list of files to send to the remote; keys are local
-#                           file names, values are remote file names
-# - z4h_ssh_retrieve_files  the same as z4h_ssh_send_files but for pulling
-#                           files from remote to local
-# - z4h_retrieve_history    list of local files into which remote $HISTFILE
-#                           should be merged at the end of the connection
-# - z4h_ssh_command         command to use instead of `ssh`
-function z4h-ssh-configure() {
-  emulate -L zsh
-
-  # Bail out if ssh teleportation is disabled. We could also
-  # override this parameter here if we wanted to.
-  (( z4h_ssh_enable )) || return 0
-
-  # Figure out what kind of machine we are about to connect to.
-  local machine_tag
-  case $z4h_ssh_host in
-    ec2-*) machine_tag=ec2;;
-    *)     machine_tag=$z4h_ssh_host;;
-  esac
-
-  # This is where we are locally keeping command history
-  # retrieved from machines of this kind.
-  local local_hist=$ZDOTDIR/.zsh/history/retrieved_from_$machine_tag
-
-  # This is where our $local_hist ends up on the remote machine when
-  # we connect to it. Command history from files with names like this
-  # is explicitly loaded by our zshrc (see below). All new commands
-  # on the remote machine will still be written to the regular $HISTFILE.
-  local remote_hist='"$ZDOTDIR"/.zsh/history/received_from_'${(q)z4h_ssh_client}
-
-  # At the start of the SSH connection, send $local_hist over and
-  # store it as $remote_hist.
-  z4h_ssh_send_files[$local_hist]=$remote_hist
-
-  # At the end of the SSH connection, retrieve $HISTFILE from the
-  # remote machine and merge it with $local_hist.
-  z4h_retrieve_history+=($local_hist)
-}
-
-# Load command history that was sent to this machine over ssh.
-() {
-  emulate -L zsh -o extended_glob
-  local hist
-  for hist in $ZDOTDIR/.zsh/history/received_from_*(NOm); do
-    fc -RI $hist
-  done
-}
-
-# Extend PATH.
-path=(~/bin $path)
-
-# Export environment variables.
-export GPG_TTY=$TTY
-
-# Source additional local files if they exist.
-z4h source ~/.env.zsh
-
-# Use additional Git repositories pulled in with `z4h install`.
-#
-# This is just an example that you should delete. It does nothing useful.
-# z4h source ohmyzsh/ohmyzsh/lib/diagnostics.zsh  # source an individual file
-# z4h load   ohmyzsh/ohmyzsh/plugins/emoji-clock  # load a plugin
-
-# Define key bindings.
-z4h bindkey z4h-backward-kill-word  Ctrl+Backspace     Ctrl+H
-z4h bindkey z4h-backward-kill-zword Ctrl+Alt+Backspace
-
-z4h bindkey undo Ctrl+/ Shift+Tab  # undo the last command line change
-z4h bindkey redo Alt+/             # redo the last undone command line change
-
-z4h bindkey z4h-cd-back    Alt+Left   # cd into the previous directory
-z4h bindkey z4h-cd-forward Alt+Right  # cd into the next directory
-z4h bindkey z4h-cd-up      Alt+Up     # cd into the parent directory
-z4h bindkey z4h-cd-down    Alt+Down   # cd into a child directory
-
-# Autoload functions.
-autoload -Uz zmv
-
-# Define functions and completions.
-function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
-compdef _directories md
-
-# Define named directories: ~w <=> Windows home directory on WSL.
-[[ -z $z4h_win_home ]] || hash -d w=$z4h_win_home
-
-# Exports.
 export EDITOR="nvim"
 
-# Define aliases.
-alias ls='eza --group-directories-first --icons=auto'
-alias tree='eza -I .git --tree --icons=auto'
+# fzf Catppuccin Mocha theme
+export FZF_DEFAULT_OPTS=" \
+--color=bg+:#313244,spinner:#f5e0dc,hl:#f38ba8 \
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+--color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
+--color=selected-bg:#45475a \
+--color=border:#313244,label:#cdd6f4"
+
+### ALIASES ###
 
 alias n='nvim'
 alias v='nvim'
 alias vi='nvim'
 alias vim='nvim'
 
-# Add flags to existing aliases.
-alias ls="${aliases[ls]:-ls} -A"
+alias ls='eza --group-directories-first --icons=auto'
 
-# Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
-setopt glob_dots     # no special treatment for file names with a leading dot
-setopt no_auto_menu  # require an extra TAB press to open the completion menu
+### COMPLETIONS ###
 
-# Shell integrations.
+# Set completions directory
+[[ -d $COMPLETIONS  ]] && fpath=($COMPLETIONS $fpath)
+
+# Disable completion menu for fzf-tab
+zstyle ':completion:*' menu no
+# Preview directory content with eza
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1a --color=always $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' ftb-preview 'eza -1a --color=always $realpath'
+# Custom fzf flags
+zstyle ':fzf-tab:*' fzf-flags --bind=tab:accept
+# Make fzf-tab follow FZF_DEFAULT_OPTS
+zstyle ':fzf-tab:*' use-fzf-default-opts yes
+# Make fzf show in a tmux popup
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+zstyle ':fzf-tab:*' popup-min-size 80 12
+
+# Load completions
+autoload -U compinit; compinit
+
+# Use fd for listing path candidates
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+
+# Use fd to generate list for directory completion
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" . "$1"
+}
+
+### SHELL INTEGRATIONS ###
+
+source <(fzf --zsh)
 
 eval "$(zoxide init zsh)"
+
+[[ -f $FZF_TAB ]] && source $FZF_TAB
+
+[[ -f $AUTOSUGGESTIONS ]] && source $AUTOSUGGESTIONS
+[[ -f $FAST_SYNTAX_HIGHLIGHTING ]] && source $FAST_SYNTAX_HIGHLIGHTING
+
+# Source Powerlevel10k
+[[ -f $POWERLEVEL10K ]] && source $POWERLEVEL10K
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
