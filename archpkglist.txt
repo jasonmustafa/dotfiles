@@ -48,9 +48,11 @@ noto-fonts-cjk
 noto-fonts-emoji
 nwg-look
 obsidian
+okular
 openssh
 papirus-icon-theme
 pavucontrol
+pika-backup
 pipewire
 pipewire-alsa
 pipewire-jack
