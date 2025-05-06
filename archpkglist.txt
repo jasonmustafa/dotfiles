@@ -65,7 +65,6 @@ rofi-emoji
 rofi-wayland
 sof-firmware
 spotify-launcher
-swaync
 system76-firmware
 thunar
 thunar-archive-plugin

@@ -1,9 +1,11 @@
 1password
 1password-cli
+ags-hyprpanel-git
 brave-bin
 firmware-manager
 floorp-bin
 hyprshot
+localsend-bin
 mkinitcpio-firmware
 nerd-fonts-inter
 papirus-folders-catppuccin-git
