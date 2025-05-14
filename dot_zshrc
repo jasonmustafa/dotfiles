@@ -1,6 +1,12 @@
 # Zsh Config File
 # Jason Mustafa (https://www.jasonmustafa.com/)
 
+### PATH ###
+
+if [[ -d "${HOME}/bin" ]] ;
+  then path+="${HOME}/bin"
+fi
+
 ### DECORATION ###
 
 pokefetch
@@ -38,12 +44,6 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_IGNORE_DUPS
 setopt HIST_FIND_NO_DUPS
-
-### PATH ###
-
-if [[ -d "${HOME}/bin" ]] ;
-  then path+="${HOME}/bin"
-fi
 
 ### EXPORT ###
 
