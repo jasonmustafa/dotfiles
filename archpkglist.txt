@@ -22,12 +22,14 @@ greetd
 greetd-regreet
 gst-plugin-pipewire
 gtk-engine-murrine
+gtksourceview3
 gvfs
 htop
 hypridle
 hyprland
 hyprlock
 hyprpaper
+hyprshot
 intel-media-driver
 intel-ucode
 kate

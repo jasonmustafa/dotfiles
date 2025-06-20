@@ -479,7 +479,10 @@
   "bar.network.truncation_size": 7,
   "bar.network.label": false,
   "bar.bluetooth.label": false,
-  "menus.dashboard.shortcuts.left.shortcut1.command": "brave --password-store=basic",
-  "menus.dashboard.shortcuts.left.shortcut1.icon": "",
-  "menus.dashboard.shortcuts.left.shortcut1.tooltip": "Brave"
+  "menus.dashboard.shortcuts.left.shortcut1.command": "firefox",
+  "menus.dashboard.shortcuts.left.shortcut1.icon": "",
+  "menus.dashboard.shortcuts.left.shortcut1.tooltip": "Firefox",
+  "bar.customModules.storage.paths": [
+    "/"
+  ]
 }
