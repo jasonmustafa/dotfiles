@@ -2,6 +2,7 @@ aquamarine
 base
 base-devel
 bat
+btop
 catfish
 cava
 chezmoi
@@ -79,6 +80,7 @@ pipewire
 pipewire-alsa
 pipewire-jack
 pipewire-pulse
+prettier
 python-capstone
 python-pyelftools
 python-pyquery
