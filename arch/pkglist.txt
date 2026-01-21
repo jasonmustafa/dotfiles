@@ -8,6 +8,7 @@ catfish
 cava
 chezmoi
 chromium
+cliphist
 discord
 docker
 duf
@@ -60,6 +61,8 @@ lynx
 man-db
 man-pages
 markdownlint-cli
+mermaid-cli
+mise
 mpv
 nano
 nautilus
@@ -69,7 +72,6 @@ noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
 nushell
-nvm
 nwg-look
 obsidian
 okular
@@ -98,6 +100,7 @@ swww
 system76-firmware
 tinymist
 tmux
+trash-cli
 ttf-jetbrains-mono
 ttf-jetbrains-mono-nerd
 ttf-nerd-fonts-symbols

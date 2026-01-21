@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+{{- if eq .chezmoi.os "darwin" }}
+s=$(( $(date +%s) - $(sysctl -n kern.boottime | awk '{print $4}' | tr -d ',') ))
+{{- else }}
+read -r s _ < /proc/uptime; s=${s%.*}
+{{- end }}
+printf '%d:%02d:%02d' $((s/86400)) $((s%86400/3600)) $((s%3600/60))

@@ -1,0 +1,213 @@
+# ==============================================================================
+# CATPPUCCIN MOCHA PALETTE (@cp-)
+# ==============================================================================
+
+set -g @cp-rosewater "#f5e0dc"
+set -g @cp-flamingo  "#f2cdcd"
+set -g @cp-pink     "#f5c2e7"
+set -g @cp-mauve    "#cba6f7"
+set -g @cp-red      "#f38ba8"
+set -g @cp-peach    "#fab387"
+set -g @cp-yellow   "#f9e2af"
+set -g @cp-teal     "#94e2d5"
+set -g @cp-blue     "#89b4fa"
+set -g @cp-lavender "#b4befe"
+set -g @cp-text     "#cdd6f4"
+set -g @cp-subtext1 "#bac2de"
+set -g @cp-subtext0 "#a6adc8"
+set -g @cp-overlay1 "#7f849c"
+set -g @cp-overlay0 "#6c7086"
+set -g @cp-surface1 "#45475a"
+set -g @cp-surface0 "#313244"
+set -g @cp-bg       "#1e1e2e"
+set -g @cp-crust    "#11111b"
+
+# ==============================================================================
+# ICONS (@i-)
+# ==============================================================================
+# Nerd Font glyphs - trailing space for proportional width
+
+set -g @i-tmux   " " # ebc8  - tmux
+set -g @i-prefix " " # f427  - rocket
+set -g @i-copy   " " # f4bb  - copy
+set -g @i-sync   " " # f46a  - sync
+set -g @i-clock  " " # f43a  - clock
+set -g @i-tree   " " # f03a  - list (session/window manager)
+set -g @i-zoom   " " # f002  - expand/zoom
+set -g @i-window "󰓩 " # f04e9 - tab (window)
+set -g @i-pane   " " # f489  - terminal (pane title)
+set -g @i-uptime " " # f4e3  - hourglass (uptime)
+
+# ==============================================================================
+# STYLE HELPERS (@style-*, @bg-*)
+# ==============================================================================
+# Style fragments for consistent theming
+
+# Foreground styles
+set -g @style-text "fg=#{@cp-text}"
+set -g @style-muted "fg=#{@cp-overlay1}"
+set -g @style-inactive "fg=#{@cp-overlay0}"
+set -g @style-accent "fg=#{@cp-mauve}"
+set -g @style-highlight "fg=#{@cp-lavender}"
+
+# Background styles
+set -g @bg-overlay "bg=#{@cp-overlay0}"
+
+# ==============================================================================
+# GENERAL OPTIONS
+# ==============================================================================
+
+set -g mouse on                # Enable mouse support
+setw -g mode-keys vi           # vi-style key bindings in copy mode
+set -g status-keys emacs       # Emacs key bindings in tmux command prompt
+set -g history-limit 50000
+set -g display-time 4000       # Message display duration (4s)
+set -g focus-events on         # Pass focus events to applications
+set -g repeat-time 1000        # Repeatable key bindings timeout (1s)
+set -g allow-passthrough on    # Allow image passthrough
+
+# ==============================================================================
+# WINDOW & PANE OPTIONS
+# ==============================================================================
+
+set -g base-index 1                      # Start windows at 1, not 0
+set -g pane-base-index 1                 # Start panes at 1, not 0
+set -g renumber-windows on               # Renumber windows when one is closed
+setw -g aggressive-resize on             # Resize to smallest client
+set -g monitor-activity on               # Monitor for activity in other windows
+set -g visual-activity off               # Suppress activity messages
+
+# ==============================================================================
+# APPEARANCE
+# ==============================================================================
+
+# Pane borders
+set -gF pane-border-style "#{@style-inactive}"
+set -gF pane-active-border-style "#{@style-highlight}"
+
+# Messages
+set -gF message-style "fg=#{@cp-teal},#{@bg-overlay}"
+set -gF message-command-style "fg=#{@cp-teal},#{@bg-overlay}"
+
+# Copy mode
+set -gF mode-style "bg=#{@cp-surface0},bold"
+set -gF copy-mode-match-style "fg=#{@cp-crust},bg=#{@cp-yellow}"
+set -gF copy-mode-current-match-style "fg=#{@cp-crust},bg=#{@cp-peach}"
+
+# Clock mode
+set -gF clock-mode-colour "#{@cp-blue}"
+
+# Popup and menu styles
+set -gF popup-style "bg=#{@cp-bg},#{@style-text}"
+set -gF popup-border-style "fg=#{@cp-surface1}"
+set -gF menu-selected-style "#{@style-text},bold,#{@bg-overlay}"
+
+# ==============================================================================
+# STATUS BAR: Config
+# ==============================================================================
+
+set -g status-position top
+set -g status-style "bg=default"
+set -g status-justify left
+set -g status-interval 5         # Refresh status bar every 5s
+set -g status 2                  # Two status lines (second is spacer)
+set -g status-format[1] ""
+set -g status-left-length 100
+set -g status-right-length 100
+
+# ==============================================================================
+# STATUS BAR: Mode Variables (@mode-is-*, @mode-*)
+# ==============================================================================
+
+# Decomposed mode detection for debugging
+# tmux display -p "#{E:@mode-is-prefix}"
+
+# Mode checks (boolean-ish: 1 or 0/empty)
+set -g @mode-is-prefix "#{?client_prefix,1,0}"
+set -g @mode-is-sync "#{?pane_synchronized,1,0}"
+set -g @mode-is-tree "#{==:#{pane_mode},tree-mode}"
+set -g @mode-is-clock "#{==:#{pane_mode},clock-mode}"
+set -g @mode-is-copy "#{pane_in_mode}"
+
+# Styled mode indicators (icon + label)
+set -g @mode-prefix "#[fg=#{@cp-red}]#{@i-prefix} TMUX  "
+set -g @mode-sync "#[fg=#{@cp-peach}]#{@i-sync} #[fg=#{@cp-text}]SYNC  "
+set -g @mode-tree "#[fg=#{@cp-teal}]#{@i-tree} #[fg=#{@cp-text}]  "
+set -g @mode-clock "#[fg=#{@cp-mauve}]#{@i-clock} #[fg=#{@cp-text}]  "
+set -g @mode-copy "#[fg=#{@cp-blue}]#{@i-copy} COPY  "
+set -g @mode-normal ""
+
+# ==============================================================================
+# STATUS BAR: Modules (@module-*)
+# ==============================================================================
+
+# Session: tmux icon + session name (always visible, leftmost)
+set -g @module-session "#[fg=#{@cp-teal}]#{@i-tmux} #S"
+
+# Mode: shows current mode (icon only for normal, icon + label for others)
+set -g @module-mode "\
+#{?#{E:@mode-is-prefix},#{E:@mode-prefix},\
+#{?#{E:@mode-is-sync},#{E:@mode-sync},\
+#{?#{E:@mode-is-tree},#{E:@mode-tree},\
+#{?#{E:@mode-is-clock},#{E:@mode-clock},\
+#{?#{E:@mode-is-copy},#{E:@mode-copy},\
+#{E:@mode-normal}}}}}}"
+
+# Zoom: shows zoom icon + label when pane is zoomed
+set -g @module-zoom "#{?window_zoomed_flag,#[fg=#{@cp-mauve}]#{@i-zoom} ZOOM  ,}"
+
+# ==============================================================================
+# STATUS BAR: Left & Right
+# ==============================================================================
+
+set -g status-left "#{E:@module-session}  #{E:@module-mode}#{E:@module-zoom}#[fg=#{@cp-pink}]#{@i-window} "
+
+# Right: pane title + uptime
+set -g status-right "\
+#[fg=#{@cp-blue}]#{@i-pane} \
+#[fg=#{@cp-subtext1}]#T  \
+#[fg=#{@cp-rosewater}]#{@i-uptime}#[fg=#{@cp-overlay1}] #(tmux-uptime)"
+
+# ==============================================================================
+# STATUS BAR: Window List (window-status-*)
+# ==============================================================================
+
+set -g window-status-separator " "
+set -gF window-status-style "fg=#{@cp-subtext0}"
+set -g window-status-format "[#I] #W#{?window_activity_flag,*,}"
+set -gF window-status-current-style "fg=#{@cp-flamingo},bold"
+# Make last used window lavender
+set -gF window-status-last-style "#{@style-highlight}"
+set -g window-status-current-format "[#I] #W"
+# Activity uses asterisk indicator only, no color override
+set -g window-status-activity-style "none"
+set -gF window-status-bell-style "fg=#{@cp-red}"
+
+# ==============================================================================
+# KEYBINDINGS
+# ==============================================================================
+
+# Prefix: Ctrl+Space
+unbind C-b
+set -g prefix C-Space
+bind C-Space send-prefix
+
+# Prefix+R - reload config
+bind R { source ~/.config/tmux/tmux.conf; display "Config reloaded" }
+
+# Prefix+p/n - previous/next window
+bind -r p previous-window
+bind -r n next-window
+
+# Prefix+P/N - move window left/right
+bind -r N { swap-window -t +1; next-window }
+bind -r P { swap-window -t -1; previous-window }
+
+# Vim-style copy mode
+bind-key -T copy-mode-vi v send-keys -X begin-selection      # v - visual selection
+bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle   # C-v - toggle block selection
+bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel  # y - yank and exit
+
+# Open panes in current directory
+bind '"' split-window -v -c "#{pane_current_path}"
+bind % split-window -h -c "#{pane_current_path}"
