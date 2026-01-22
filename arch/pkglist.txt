@@ -1,6 +1,7 @@
 aquamarine
 base
 base-devel
+bash-language-server
 bat
 btop
 catfish
@@ -84,6 +85,7 @@ prettier
 python-capstone
 python-pyelftools
 python-pyquery
+quickshell
 ripgrep
 rofi
 rofi-emoji

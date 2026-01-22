@@ -2,7 +2,6 @@
 1password-cli
 brave-bin
 bun-bin
-caelestia-shell
 catppuccin-cursors-mocha
 cht.sh-git
 firmware-manager
