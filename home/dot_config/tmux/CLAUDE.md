@@ -18,7 +18,8 @@ flowchart TB
 ```
 
 - **Session**: Teal tmux icon + session name (both teal)
-- **Mode indicator**: Only shows in non-normal modes (prefix/copy/sync/tree/clock)
+- **Mode indicator**: Only shows in non-normal modes
+  (prefix/copy/sync/tree/clock)
 - **Zoom indicator**: Mauve zoom icon + "ZOOM" when pane is zoomed
 - **Window icon**: Pink tab icon before window list
 - **Windows**: Left-justified list (active=bold flamingo, last=lavender)
@@ -28,26 +29,26 @@ flowchart TB
 
 ### Mode Indicators
 
-| Mode | Icon | Label | Color |
-|------|------|-------|-------|
-| Normal | (hidden) | — | — |
-| Prefix | rocket | TMUX | red |
-| Copy | copy | COPY | blue |
-| Sync | sync | SYNC | peach |
-| Tree | list | — | teal |
-| Clock | clock | — | mauve |
+| Mode   | Icon     | Label | Color |
+| ------ | -------- | ----- | ----- |
+| Normal | (hidden) | —     | —     |
+| Prefix | rocket   | TMUX  | red   |
+| Copy   | copy     | COPY  | blue  |
+| Sync   | sync     | SYNC  | peach |
+| Tree   | list     | —     | teal  |
+| Clock  | clock    | —     | mauve |
 
 Priority: prefix > sync > tree > clock > copy > normal
 
 ### Window Indicators
 
-| State | Style |
-|-------|-------|
-| Normal | subtext0 |
-| Current | flamingo, bold |
-| Last | lavender |
-| Activity | Asterisk (*) suffix |
-| Bell | red |
+| State    | Style                |
+| -------- | -------------------- |
+| Normal   | subtext0             |
+| Current  | flamingo, bold       |
+| Last     | lavender             |
+| Activity | Asterisk (\*) suffix |
+| Bell     | red                  |
 
 ## Colors (`@cp-`)
 
@@ -92,22 +93,23 @@ Reusable style fragments:
 
 Nerd Font glyphs with trailing space:
 
-| Icon | Variable | Unicode | Usage |
-|------|----------|---------|-------|
-| tmux | `@i-tmux` | `ebc8` | Normal mode |
-| rocket | `@i-prefix` | `f427` | Prefix mode |
-| copy | `@i-copy` | `f4bb` | Copy mode |
-| sync | `@i-sync` | `f46a` | Synchronized panes |
-| clock | `@i-clock` | `f43a` | Clock mode |
-| list | `@i-tree` | `f03a` | Tree mode |
-| zoom | `@i-zoom` | `f002` | Zoomed pane |
-| tab | `@i-window` | `f04e9` | Window list header |
-| terminal | `@i-pane` | `f489` | Pane title |
-| hourglass | `@i-uptime` | `f4e3` | Uptime display |
+| Icon      | Variable    | Unicode | Usage              |
+| --------- | ----------- | ------- | ------------------ |
+| tmux      | `@i-tmux`   | `ebc8`  | Normal mode        |
+| rocket    | `@i-prefix` | `f427`  | Prefix mode        |
+| copy      | `@i-copy`   | `f4bb`  | Copy mode          |
+| sync      | `@i-sync`   | `f46a`  | Synchronized panes |
+| clock     | `@i-clock`  | `f43a`  | Clock mode         |
+| list      | `@i-tree`   | `f03a`  | Tree mode          |
+| zoom      | `@i-zoom`   | `f002`  | Zoomed pane        |
+| tab       | `@i-window` | `f04e9` | Window list header |
+| terminal  | `@i-pane`   | `f489`  | Pane title         |
+| hourglass | `@i-uptime` | `f4e3`  | Uptime display     |
 
 ## Module System
 
-Modules use `#{E:@var}` expansion for nested variable resolution. Line continuation (`\`) used for readability.
+Modules use `#{E:@var}` expansion for nested variable resolution. Line
+continuation (`\`) used for readability.
 
 ### Mode Detection (`@mode-is-*`)
 
@@ -158,38 +160,38 @@ Called from status-right via `#(tmux-uptime)`.
 
 ## Key Bindings
 
-| Binding | Action |
-|---------|--------|
-| `Ctrl+Space` | Prefix key |
-| `Prefix+R` | Reload config |
-| `Prefix+p/n` | Previous/next window (repeatable) |
-| `Prefix+P/N` | Move window left/right (repeatable) |
-| `Prefix+"` | Split vertical (current path) |
-| `Prefix+%` | Split horizontal (current path) |
-| `Prefix+[` | Enter copy mode |
-| `v` (copy mode) | Begin selection |
-| `C-v` (copy mode) | Toggle rectangle selection |
-| `y` (copy mode) | Yank and exit |
+| Binding           | Action                              |
+| ----------------- | ----------------------------------- |
+| `Ctrl+Space`      | Prefix key                          |
+| `Prefix+R`        | Reload config                       |
+| `Prefix+p/n`      | Previous/next window (repeatable)   |
+| `Prefix+P/N`      | Move window left/right (repeatable) |
+| `Prefix+"`        | Split vertical (current path)       |
+| `Prefix+%`        | Split horizontal (current path)     |
+| `Prefix+[`        | Enter copy mode                     |
+| `v` (copy mode)   | Begin selection                     |
+| `C-v` (copy mode) | Toggle rectangle selection          |
+| `y` (copy mode)   | Yank and exit                       |
 
 ## Other Settings
 
-| Setting | Value | Purpose |
-|---------|-------|---------|
-| `mouse` | on | Mouse support |
-| `mode-keys` | vi | Vi-style copy mode |
-| `status-keys` | emacs | Emacs in command prompt |
-| `history-limit` | 50000 | Scrollback buffer |
-| `display-time` | 4000 | Message display (4s) |
-| `status-interval` | 5 | Status refresh (5s) |
-| `status` | 2 | Two status lines |
-| `repeat-time` | 1000 | Repeatable timeout (1s) |
-| `base-index` | 1 | Windows start at 1 |
-| `pane-base-index` | 1 | Panes start at 1 |
-| `renumber-windows` | on | Auto-renumber on close |
-| `monitor-activity` | on | Detect background activity |
-| `visual-activity` | off | Suppress activity messages |
-| `focus-events` | on | Pass focus events |
-| `aggressive-resize` | on | Resize per-window |
+| Setting             | Value | Purpose                    |
+| ------------------- | ----- | -------------------------- |
+| `mouse`             | on    | Mouse support              |
+| `mode-keys`         | vi    | Vi-style copy mode         |
+| `status-keys`       | emacs | Emacs in command prompt    |
+| `history-limit`     | 50000 | Scrollback buffer          |
+| `display-time`      | 4000  | Message display (4s)       |
+| `status-interval`   | 5     | Status refresh (5s)        |
+| `status`            | 2     | Two status lines           |
+| `repeat-time`       | 1000  | Repeatable timeout (1s)    |
+| `base-index`        | 1     | Windows start at 1         |
+| `pane-base-index`   | 1     | Panes start at 1           |
+| `renumber-windows`  | on    | Auto-renumber on close     |
+| `monitor-activity`  | on    | Detect background activity |
+| `visual-activity`   | off   | Suppress activity messages |
+| `focus-events`      | on    | Pass focus events          |
+| `aggressive-resize` | on    | Resize per-window          |
 
 ## File Locations
 
