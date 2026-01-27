@@ -25,7 +25,7 @@ flowchart TB
 - **Windows**: Left-justified list (active=bold flamingo, last=lavender)
 - **Pane title**: Blue terminal icon with pane title
 - **Uptime**: Rosewater hourglass icon with `D:HH:MM` format (muted text)
-- **Spacer**: Empty second status line separates bar from content
+- **Separator**: Second status line draws a `―` bar across full terminal width
 
 ### Mode Indicators
 
@@ -136,14 +136,17 @@ Pre-styled icon + label variables:
 @mode-normal  # Empty (hidden in normal mode)
 ```
 
-### Module Variables (`@module-*`)
+### Module Variables (`@m-*`)
 
-Composed modules expanded via `#{E:@module-name}`:
+Composed modules expanded via `#{E:@m-name}`:
 
 ```bash
-@module-session # Teal tmux icon + session name
-@module-mode    # Priority cascade: prefix > sync > tree > clock > copy > (empty)
-@module-zoom    # Mauve zoom icon + "ZOOM" (conditional)
+@m-session # Teal tmux icon + session name
+@m-mode    # Priority cascade: prefix > sync > tree > clock > copy > (empty)
+@m-zoom    # Mauve zoom icon + "ZOOM" (conditional)
+@m-window  # Pink tab icon
+@m-pane    # Blue terminal icon + pane title
+@m-uptime  # Rosewater hourglass + D:HH:MM uptime
 ```
 
 ## External Scripts
@@ -158,6 +161,13 @@ OS-aware uptime script at `~/bin/tmux-uptime`:
 
 Called from status-right via `#(tmux-uptime)`.
 
+### tmux-separator
+
+Draws a `―` separator bar at `~/bin/tmux-separator`:
+
+- Uses `tmux display -p '#{client_width}'` for exact terminal width
+- Called from `status-format[1]` via `#(tmux-separator)`
+
 ## Key Bindings
 
 | Binding           | Action                              |
@@ -171,7 +181,7 @@ Called from status-right via `#(tmux-uptime)`.
 | `Prefix+[`        | Enter copy mode                     |
 | `v` (copy mode)   | Begin selection                     |
 | `C-v` (copy mode) | Toggle rectangle selection          |
-| `y` (copy mode)   | Yank and exit                       |
+| `y` (copy mode)   | Yank (stays in copy mode)           |
 
 ## Other Settings
 
@@ -192,8 +202,11 @@ Called from status-right via `#(tmux-uptime)`.
 | `visual-activity`   | off   | Suppress activity messages |
 | `focus-events`      | on    | Pass focus events          |
 | `aggressive-resize` | on    | Resize per-window          |
+| `set-titles`        | on    | Set outside terminal title |
+| `allow-passthrough` | on    | Allow image passthrough    |
 
 ## File Locations
 
 - **Config**: `~/.config/tmux/tmux.conf`
 - **Uptime script**: `~/bin/tmux-uptime`
+- **Separator script**: `~/bin/tmux-separator`

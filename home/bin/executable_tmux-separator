@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+printf '%.0s―' $(seq 1 "$(tmux display -p '#{client_width}')")

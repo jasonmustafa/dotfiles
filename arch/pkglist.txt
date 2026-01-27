@@ -13,6 +13,7 @@ discord
 docker
 duf
 efibootmgr
+ex-vi-compat
 eza
 fastfetch
 fd
@@ -110,7 +111,6 @@ typst
 ueberzugpp
 ufw
 uv
-vi
 vim
 waybar
 wireplumber

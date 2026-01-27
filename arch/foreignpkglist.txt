@@ -7,7 +7,6 @@ cht.sh-git
 firmware-manager
 grimblast-git
 gtk-engine-murrine
-helium-browser-bin
 localsend-bin
 mkinitcpio-firmware
 noctalia-shell
@@ -24,6 +23,5 @@ ttf-meslo-nerd-font-powerlevel10k
 ttf-ms-win11-auto
 vicinae-bin
 visual-studio-code-bin
-zen-browser-bin
 zsh-fast-syntax-highlighting
 zsh-theme-powerlevel10k-git
