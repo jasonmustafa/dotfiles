@@ -192,6 +192,7 @@ Draws a `―` separator bar at `~/bin/tmux-separator`:
 | `status-keys`       | emacs | Emacs in command prompt    |
 | `history-limit`     | 50000 | Scrollback buffer          |
 | `display-time`      | 4000  | Message display (4s)       |
+| `escape-time`       | 0     | No escape key delay (vim)  |
 | `status-interval`   | 5     | Status refresh (5s)        |
 | `status`            | 2     | Two status lines           |
 | `repeat-time`       | 1000  | Repeatable timeout (1s)    |

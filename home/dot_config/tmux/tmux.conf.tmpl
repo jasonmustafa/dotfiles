@@ -58,10 +58,11 @@ set -g @i-uptime " " # f4e3  - hourglass (uptime)
 # ==============================================================================
 
 set  -g mouse             on    # Enable mouse support
-setw -g mode-keys         vi    # vi-style key bindings in copy mode
+set  -g mode-keys         vi    # vi-style key bindings in copy mode
 set  -g status-keys       emacs # Emacs key bindings in tmux command prompt
 set  -g history-limit     50000
 set  -g display-time      4000  # Message display duration (4s)
+set  -s escape-time       0     # No delay for escape key (vim/neovim)
 set  -g focus-events      on    # Pass focus events to applications
 set  -g repeat-time       1000  # Repeatable key bindings timeout (1s)
 set  -g allow-passthrough on    # Allow image passthrough
@@ -74,7 +75,7 @@ set  -g set-titles        on    # Set outside terminal title
 set  -g base-index         1   # Start windows at 1, not 0
 set  -g pane-base-index    1   # Start panes at 1, not 0
 set  -g renumber-windows   on  # Renumber windows when one is closed
-setw -g aggressive-resize  on  # Resize to smallest client
+set  -g aggressive-resize  on  # Resize to smallest client
 set  -g monitor-activity   on  # Monitor for activity in other windows
 set  -g visual-activity    off # Suppress activity messages
 
@@ -206,9 +207,9 @@ bind -r N { swap-window -t +1; next-window }
 bind -r P { swap-window -t -1; previous-window }
 
 # Vim-style copy mode: v=select, C-v=block, y=yank
-bind-key -Tcopy-mode-vi v   send -X begin-selection
-bind-key -Tcopy-mode-vi C-v send -X rectangle-toggle
-bind-key -Tcopy-mode-vi y   send -X copy-selection
+bind -T copy-mode-vi v   send -X begin-selection
+bind -T copy-mode-vi C-v send -X rectangle-toggle
+bind -T copy-mode-vi y   send -X copy-selection
 
 # Lines below this point break syntax highlighting
 
