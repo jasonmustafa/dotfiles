@@ -77,6 +77,7 @@ nwg-look
 obsidian
 okular
 openssh
+pacman-contrib
 papirus-icon-theme
 pavucontrol
 pika-backup
@@ -99,6 +100,7 @@ spotify-launcher
 steam
 swww
 system76-firmware
+tesseract
 tinymist
 tmux
 trash-cli
