@@ -26,7 +26,7 @@ flowchart TB
   clock=mauve clock
 - **Sync indicator**: Peach sync icon when panes are synchronized (standalone)
 - **Zoom indicator**: Mauve zoom icon when pane is zoomed (standalone)
-- **Windows**: Absolute-centred list (active=█ prefix + bold mauve, last=lavender)
+- **Windows**: Absolute-centred list (active=█ prefix + bold rosewater, last=lavender)
 - **Uptime**: Rosewater hourglass icon with `D:HH:MM` format (muted text)
 - **Separator**: Second status line draws a `―` bar across full terminal width
 
@@ -49,7 +49,7 @@ Sync is a separate standalone indicator (peach sync icon), not in cascade.
 | State    | Style                |
 | -------- | -------------------- |
 | Normal   | subtext0             |
-| Current  | mauve, bold, █ prefix |
+| Current  | rosewater, bold, █ prefix |
 | Last     | lavender             |
 | Activity | Asterisk (\*) suffix |
 | Bell     | red                  |
@@ -59,10 +59,10 @@ Sync is a separate standalone indicator (peach sync icon), not in cascade.
 All colors defined as Catppuccin Mocha hex values:
 
 ```bash
-@cp-rosewater "#f5e0dc"  # Uptime icon
+@cp-rosewater "#f5e0dc"  # Current window, uptime icon
 @cp-flamingo  "#f2cdcd"
 @cp-pink      "#f5c2e7"
-@cp-mauve     "#cba6f7"  # Current window, zoom indicator, clock mode
+@cp-mauve     "#cba6f7"  # Zoom indicator, clock mode
 @cp-red       "#f38ba8"  # Prefix mode, bell
 @cp-peach     "#fab387"  # Sync mode, current search match
 @cp-yellow    "#f9e2af"  # Search matches
@@ -155,12 +155,23 @@ Draws a `―` separator bar at `~/bin/tmux-separator`:
 - Uses `tmux display -p '#{client_width}'` for exact terminal width
 - Called from `status-format[1]` via `#(tmux-separator)`
 
+### agent-popup.sh
+
+Agent popup manager at `~/.config/tmux/agent-popup.sh`:
+
+- Creates single `_agent` session with windows named after parent sessions
+- Each parent session gets its own persistent window
+- Receives `$PARENT` and `$DIR` env vars via `run-shell` format expansion
+- Runs `claude` command (configurable for other CLI agents)
+- `Prefix+d` to close popup (detach from `_agent` session)
+
 ## Key Bindings
 
 | Binding           | Action                              |
 | ----------------- | ----------------------------------- |
 | `Ctrl+Space`      | Prefix key                          |
 | `Prefix+R`        | Reload config                       |
+| `Prefix+a`        | Toggle agent popup (90% overlay)    |
 | `Prefix+p/n`      | Previous/next window (repeatable)   |
 | `Prefix+P/N`      | Move window left/right (repeatable) |
 | `Prefix+"`        | Split vertical (current path)       |
@@ -196,5 +207,6 @@ Draws a `―` separator bar at `~/bin/tmux-separator`:
 ## File Locations
 
 - **Config**: `~/.config/tmux/tmux.conf`
+- **Agent popup**: `~/.config/tmux/agent-popup.sh`
 - **Uptime script**: `~/bin/tmux-uptime`
 - **Separator script**: `~/bin/tmux-separator`
