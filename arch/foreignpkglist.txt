@@ -23,5 +23,6 @@ ttf-meslo-nerd-font-powerlevel10k
 ttf-ms-win11-auto
 vicinae-bin
 visual-studio-code-bin
+wezterm-git
 zsh-fast-syntax-highlighting
 zsh-theme-powerlevel10k-git

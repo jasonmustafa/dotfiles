@@ -1,8 +1,11 @@
+alacritty
 aquamarine
 base
 base-devel
 bash-language-server
 bat
+bluez
+bluez-utils
 btop
 catfish
 cava
@@ -24,6 +27,7 @@ flatpak
 foot
 fzf
 gdb
+ghostty
 gimp
 git
 git-delta
@@ -75,7 +79,6 @@ noto-fonts-emoji
 nushell
 nwg-look
 obsidian
-okular
 openssh
 pacman-contrib
 papirus-icon-theme
