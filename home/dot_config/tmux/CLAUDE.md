@@ -159,9 +159,11 @@ Draws a `―` separator bar at `~/bin/tmux-separator`:
 
 Agent popup manager at `~/.config/tmux/agent-popup.sh`:
 
-- Creates single `_agent` session with windows named after parent sessions
-- Each parent session gets its own persistent window
-- Receives `$PARENT` and `$DIR` env vars via `run-shell` format expansion
+- Single `_agent` session with `parent:suffix` window naming (e.g., `dotfiles:button`)
+- Prompts for instance name on `Prefix+a`; empty → timestamp suffix (e.g., `143052`)
+- New windows insert after last window with same parent (keeps projects grouped)
+- Reattaches if window already exists; creates new otherwise
+- Receives `$PARENT`, `$DIR`, `$SUFFIX` env vars via `command-prompt` expansion
 - Runs `claude` command (configurable for other CLI agents)
 - `Prefix+d` to close popup (detach from `_agent` session)
 
@@ -171,7 +173,8 @@ Agent popup manager at `~/.config/tmux/agent-popup.sh`:
 | ----------------- | ----------------------------------- |
 | `Ctrl+Space`      | Prefix key                          |
 | `Prefix+R`        | Reload config                       |
-| `Prefix+a`        | Toggle agent popup (90% overlay)    |
+| `Prefix+a`        | Agent popup (prompts for name)      |
+| `Prefix+A`        | Switch agent windows (choose-tree)  |
 | `Prefix+p/n`      | Previous/next window (repeatable)   |
 | `Prefix+P/N`      | Move window left/right (repeatable) |
 | `Prefix+"`        | Split vertical (current path)       |
