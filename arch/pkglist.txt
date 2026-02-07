@@ -36,6 +36,7 @@ gnome-themes-extra
 go-yq
 greetd
 greetd-regreet
+greetd-tuigreet
 gst-plugin-pipewire
 gvfs
 gwenview
