@@ -1,0 +1,8 @@
+{
+  "name": "default",
+  "description": "Base agent with shared skills and steering",
+  "resources": [
+    "file://../steering/**/*.md",
+    "skill://../skills/**/SKILL.md"
+  ]
+}
