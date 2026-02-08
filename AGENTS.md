@@ -55,3 +55,17 @@ Files ending in `.tmpl` use Go templates with chezmoi data:
 
 - Catppuccin Mocha theme throughout all configs
 - Nerd Font glyphs embedded directly with trailing space for proportional width
+
+## Nerd Font Glyphs
+
+When editing lines containing Nerd Font icon glyphs:
+
+- Only modify necessary characters around the glyph, never rewrite it
+- Use `replace_all` on safe substrings when bulk renaming
+- If glyph itself needs changing, use placeholder `X` with comment:
+  `"X "  # f120 - terminal`
+
+## Commit Message Rules
+
+- Never include Arch package add/remove changes from `arch/*pkglist.txt` in
+  commit message summaries or bodies.
