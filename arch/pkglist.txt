@@ -59,6 +59,7 @@ kate
 kitty
 kwallet-pam
 kwalletmanager
+lazygit
 less
 libpulse
 linux
@@ -80,6 +81,7 @@ noto-fonts-emoji
 nushell
 nwg-look
 obsidian
+openai-codex
 openssh
 pacman-contrib
 papirus-icon-theme
@@ -98,6 +100,7 @@ ripgrep
 rofi
 rofi-emoji
 satty
+shfmt
 sof-firmware
 solaar
 spotify-launcher
