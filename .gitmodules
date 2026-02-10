@@ -1,4 +1,0 @@
-[submodule "home/dot_config/external_nvim"]
-	path = home/dot_config/external_nvim
-	url = git@github.com:jasonmustafa/kickstart.nvim.git
-	branch = personal

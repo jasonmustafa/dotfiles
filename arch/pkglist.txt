@@ -6,6 +6,7 @@ bash-language-server
 bat
 bluez
 bluez-utils
+bob
 btop
 catfish
 cava
@@ -38,6 +39,7 @@ greetd
 greetd-regreet
 greetd-tuigreet
 gst-plugin-pipewire
+gum
 gvfs
 gwenview
 htop
@@ -64,6 +66,7 @@ less
 libpulse
 linux
 linux-firmware
+lua-language-server
 lynx
 man-db
 man-pages
@@ -73,7 +76,6 @@ mise
 mpv
 nano
 nautilus
-neovim
 networkmanager
 noto-fonts
 noto-fonts-cjk
@@ -93,6 +95,7 @@ pipewire-jack
 pipewire-pulse
 prettier
 python-capstone
+python-pipx
 python-pyelftools
 python-pyquery
 quickshell
@@ -116,6 +119,7 @@ ttf-jetbrains-mono-nerd
 ttf-nerd-fonts-symbols
 ttf-nerd-fonts-symbols-mono
 tumbler
+ty
 typst
 ueberzugpp
 ufw
