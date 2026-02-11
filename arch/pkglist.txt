@@ -15,6 +15,7 @@ chromium
 cliphist
 discord
 docker
+doublecmd-qt6
 duf
 efibootmgr
 ex-vi-compat
@@ -66,7 +67,6 @@ less
 libpulse
 linux
 linux-firmware
-lua-language-server
 lynx
 man-db
 man-pages
@@ -98,6 +98,7 @@ python-capstone
 python-pipx
 python-pyelftools
 python-pyquery
+qt6ct
 quickshell
 ripgrep
 rofi
@@ -119,7 +120,6 @@ ttf-jetbrains-mono-nerd
 ttf-nerd-fonts-symbols
 ttf-nerd-fonts-symbols-mono
 tumbler
-ty
 typst
 ueberzugpp
 ufw

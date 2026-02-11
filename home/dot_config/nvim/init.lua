@@ -2,10 +2,18 @@ vim.o.number = true
 vim.o.relativenumber = true
 vim.o.signcolumn = "yes"
 vim.o.wrap = false
+
 vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.smartindent = true
+
 vim.o.swapfile = false
-vim.g.mapleader = " "
+vim.o.termguicolors = true
+vim.o.undofile = true
+vim.o.incsearch = true
 vim.o.winborder = "rounded"
+
+vim.g.mapleader = " "
 
 vim.keymap.set('n', '<leader>o', ':update<CR> :source<CR>')
 vim.keymap.set('n', '<leader>w', ':write<CR>')
@@ -39,6 +47,17 @@ vim.keymap.set('n', '<leader>e', ":Oil<CR>")
 vim.keymap.set('n', '<leader>h', ":Pick help<CR>")
 
 vim.lsp.enable({ "lua_ls", "ty" })
+
+vim.lsp.config("lua_ls", {
+	settings = {
+		Lua = {
+			workspace = {
+				library = vim.api.nvim_get_runtime_file("", true)
+			}
+		}
+	}
+})
+
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 
 vim.cmd("colorscheme catppuccin-mocha")
