@@ -15,9 +15,12 @@ vim.o.winborder = "rounded"
 
 vim.g.mapleader = " "
 
-vim.keymap.set('n', '<leader>o', ':update<CR> :source<CR>')
+vim.keymap.set({ 'n', 'v', 'x' }, '<leader>o', '<cmd>update<CR> :source<CR>')
+vim.keymap.set({ 'n', 'v', 'x' }, "<leader>O", "<cmd>restart<CR>", { desc = "Restart vim" })
+vim.keymap.set({ "n", "v", "x" }, "<C-s>", [[:s/\V]], { desc = "Enter substitue mode in selection" })
 vim.keymap.set('n', '<leader>w', ':write<CR>')
 vim.keymap.set('n', '<leader>q', ':quit<CR>')
+
 
 vim.keymap.set({ 'n', 'v', 'x' }, '<leader>y', '"+y<CR>')
 vim.keymap.set({ 'n', 'v', 'x' }, '<leader>d', '"+d<CR>')
@@ -38,7 +41,8 @@ vim.pack.add({
 	{ src = "https://github.com/saghen/blink.cmp" },
 	{ src = "https://github.com/akinsho/toggleterm.nvim" },
 	{ src = "https://github.com/folke/trouble.nvim" },
-	{ src = "https://github.com/lewis6991/gitsigns.nvim" }
+	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
+	{ src = "https://github.com/nvim-mini/mini.extra" },
 })
 
 require 'mini.icons'.setup()
@@ -50,6 +54,9 @@ require "trouble".setup()
 require "toggleterm".setup {
 	open_mapping = [[<c-\>]],
 	direction = "float",
+	float_opts = {
+		border = "rounded",
+	},
 }
 
 -- Remove unused plugins
@@ -67,6 +74,11 @@ local function pack_clean()
 		end
 	end
 
+	if #unused_plugins == 0 then
+		print("No unused plugins.")
+		return
+	end
+
 	local choice = vim.fn.confirm("Remove unused plugins?", "&Yes\n&No", 2)
 	if choice == 1 then
 		vim.pack.del(unused_plugins)
@@ -80,14 +92,36 @@ require "blink.cmp".setup {
 	fuzzy = { implementation = "rust" }
 }
 
-require "mini.pick".setup()
+require "mini.pick".setup {
+	window = {
+		config = function()
+			local height = math.floor(0.618 * vim.o.lines)
+			local width = math.floor(0.618 * vim.o.columns)
+			return {
+				anchor = "NW",
+				height = height,
+				width = width,
+				row = math.floor(0.5 * (vim.o.lines - height)),
+				col = math.floor(0.5 * (vim.o.columns - width)),
+			}
+		end,
+	},
+}
+
 require "mini.pairs".setup()
 require "mini.surround".setup()
 require "mini.statusline".setup()
 
 require "oil".setup {
+	lsp_file_methods = { autosave_changes = true },
 	columns = { "permissions", "icon" },
 	view_options = { show_hidden = true },
+	float = {
+		max_width = 0.3,
+		max_height = 0.6,
+		border = "rounded",
+		win_options = { winblend = 20 }
+	},
 }
 
 require "gitsigns".setup {
@@ -101,7 +135,10 @@ require "gitsigns".setup {
 }
 
 require "mason".setup()
-require "catppuccin".setup { transparent_background = true }
+require "catppuccin".setup {
+	transparent_background = true,
+	float = { transparent = true },
+}
 
 require "cord".setup {
 	text = {
@@ -110,12 +147,18 @@ require "cord".setup {
 	}
 }
 
-vim.keymap.set('n', '<leader>f', ":Pick files<CR>")
-vim.keymap.set('n', '<leader>g', ":Pick grep_live<CR>")
-vim.keymap.set('n', '<leader>b', ":Pick buffers<CR>")
+require 'mini.extra'.setup()
 
-vim.keymap.set('n', '<leader>e', ":Oil<CR>")
-vim.keymap.set('n', '<leader>h', ":Pick help<CR>")
+vim.keymap.set('n', '<leader>f', "<cmd>Pick files<CR>")
+vim.keymap.set('n', '<leader>g', "<cmd>Pick grep_live<CR>")
+vim.keymap.set('n', '<leader>b', "<cmd>Pick buffers<CR>")
+
+vim.keymap.set('n', '<leader>e', require("oil").open_float)
+vim.keymap.set('n', '<leader>h', "<cmd>Pick help<CR>")
+vim.keymap.set('n', '<leader>sk', '<cmd>Pick keymaps<CR>')
+
+vim.keymap.set("n", "<leader>sd", function() MiniExtra.pickers.diagnostic({ scope = "current" }) end,
+	{ desc = "Search diagnostics" })
 
 vim.lsp.enable({ "lua_ls", "ty" })
 
@@ -132,5 +175,13 @@ vim.lsp.config("lua_ls", {
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 vim.keymap.set('n', '<leader>pc', pack_clean)
 vim.keymap.set('n', '<leader>q', ":Trouble diagnostics toggle<CR>")
+
+-- center screen after scrolling
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+
+-- center screen after jumping between search matches
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
 
 vim.cmd("colorscheme catppuccin-mocha")
