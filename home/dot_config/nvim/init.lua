@@ -43,6 +43,8 @@ vim.pack.add({
 
 require 'mini.icons'.setup()
 
+vim.keymap.set({ "n" }, "<leader>sa", require("actions-preview").code_actions)
+
 require "trouble".setup()
 
 require "toggleterm".setup {
@@ -70,16 +72,6 @@ local function pack_clean()
 		vim.pack.del(unused_plugins)
 	end
 end
-
-vim.api.nvim_create_autocmd('LspAttach', {
-	callback = function(ev)
-		local client = vim.lsp.get_client_by_id(ev.data.client_id)
-		if client:supports_method('textDocument/completion') then
-			vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-		end
-	end,
-})
-vim.cmd("set completeopt+=noselect")
 
 require "blink.cmp".setup {
 	-- To install rust fuzzy finder
