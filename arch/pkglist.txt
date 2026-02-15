@@ -99,7 +99,6 @@ python-pipx
 python-pyelftools
 python-pyquery
 qt6ct
-quickshell
 ripgrep
 rofi
 rofi-emoji

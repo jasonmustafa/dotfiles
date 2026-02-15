@@ -15,6 +15,7 @@ paru
 paru-debug
 pokeget
 pwvucontrol
+quickshell-git
 sesh-bin
 sunsetr-bin
 system76-acpi-dkms
