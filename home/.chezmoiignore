@@ -1,4 +1,5 @@
 README.md
 archpkglist.txt
 archforeignpkglist.txt
-
+.config/nvim/AGENTS.md
+.config/tmux/AGENTS.md

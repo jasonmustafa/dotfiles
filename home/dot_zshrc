@@ -65,6 +65,10 @@ export FZF_DEFAULT_OPTS=" \
 
 export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
 
+export CODEX_HOME="$HOME/.agents"
+export MANPAGER="nvim +Man!"
+export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/rgrc"
+
 ### ALIASES ###
 
 alias ch='cht.sh'
