@@ -49,6 +49,12 @@ map({ "n", "v", "x" }, "<leader>y", '"+y<CR>')
 map({ "n", "v", "x" }, "<leader>d", '"+d<CR>')
 map({ "n", "v", "x" }, "<C-s>", [[:s/\V]], { desc = "Enter substitute mode in selection" })
 
+-- Clear highlights on search when pressing <ESC> in normal mode
+map("n", "<Esc>", "<cmd>nohlsearch<CR>")
+
+map("n", "<leader>q", "<cmd>Trouble diagnostics toggle<CR>")
+-- map("n", "<leader>q", vim.diagnostic.setloclist, {desc = "Open diagnostics Quickfix list"})
+
 -- Search and pickers.
 map("n", "<leader>f", "<cmd>Pick files<CR>")
 map("n", "<leader>g", "<cmd>Pick grep_live<CR>")
@@ -69,8 +75,8 @@ end)
 map("n", "<leader>sa", function()
 	require("actions-preview").code_actions()
 end, { desc = "Code actions preview" })
+
 map("n", "<leader>lf", language_format, { desc = "Format buffer" })
-map("n", "<leader>q", "<cmd>Trouble diagnostics toggle<CR>")
 
 -- Plugin maintenance.
 map("n", "<leader>pc", pack_clean, { desc = "Remove unused plugins" })

@@ -104,6 +104,7 @@ rofi
 rofi-emoji
 satty
 shfmt
+skim
 sof-firmware
 solaar
 spotify-launcher

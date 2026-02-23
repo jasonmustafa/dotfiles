@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+set -u
+
+DIRS=(
+	"$HOME/dev/projects/"
+)
+
+if [[ $# -eq 1 ]]; then
+	selected=$1
+else
+	selected=$(fd . "${DIRS[@]}" --type=dir --min-depth=1 --max-depth=1 --full-path \
+		| sed "s|^$HOME/||" \
+		| sk --margin 10%)
+	[[ $selected ]] && selected="$HOME/$selected"
+fi
+
+[[ -z "${selected:-}" ]] && exit 0
+
+if ! command -v gum > /dev/null 2>&1; then
+	echo "tmux-session-manager: gum not found" >&2
+	exit 1
+fi
+
+default_name=$(basename "$selected" | tr . _)
+selected_name="$(
+	gum input \
+		--header "dir: $selected" \
+		--prompt "session name: " \
+		--value "$default_name"
+)" || exit 0
+
+[[ -z "$selected_name" ]] && exit 0
+
+if ! tmux has-session -t "$selected_name"; then
+	tmux new-session -ds "$selected_name" -c "$selected"
+	tmux select-window -t "$selected_name:1"
+fi
+
+tmux switch-client -t "$selected_name"
