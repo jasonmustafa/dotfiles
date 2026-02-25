@@ -10,6 +10,7 @@ vim.pack.add({
 	{ src = "https://github.com/akinsho/toggleterm.nvim" },
 	{ src = "https://github.com/nvim-mini/mini.pairs" },
 	{ src = "https://github.com/nvim-mini/mini.surround" },
+	{ src = "https://github.com/NMAC427/guess-indent.nvim" },
 
 	-- Search/pickers
 	{ src = "https://github.com/nvim-mini/mini.pick" }, -- for full exp: mini.icons + ripgrep
@@ -20,12 +21,13 @@ vim.pack.add({
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 	{ src = "https://github.com/saghen/blink.cmp" },
 	{ src = "https://github.com/aznhe21/actions-preview.nvim" },
-	{ src = "https://github.com/folke/trouble.nvim" },
+	-- { src = "https://github.com/folke/trouble.nvim" }, -- i got weird behavior (probably skill issue)
 
 	-- Tooling/misc
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
+	{ src = "https://github.com/nvim-mini/mini.clue" },
 	{ src = "https://github.com/vyfor/cord.nvim" },
 })
 
@@ -38,7 +40,7 @@ require("mini.icons").setup()
 require("mini.notify").setup()
 require("mini.statusline").setup()
 
--- Editing/navigation
+-- editing/navigation
 require("mini.pairs").setup()
 require("mini.surround").setup()
 
@@ -59,6 +61,8 @@ require("toggleterm").setup({
 	direction = "float",
 	float_opts = { border = "rounded" },
 })
+
+require("guess-indent").setup({})
 
 -- Search/pickers
 require("mini.pick").setup({
@@ -86,7 +90,7 @@ require("blink.cmp").setup({
 	-- cargo build --release
 	fuzzy = { implementation = "rust" },
 })
-require("trouble").setup()
+-- require("trouble").setup()
 
 -- Tooling/misc
 require("gitsigns").setup({
@@ -94,7 +98,7 @@ require("gitsigns").setup({
 		add = { text = "+" },
 		change = { text = "~" },
 		delete = { text = "_" },
-		topdelete = { text = "-" },
+		topdelete = { text = "‾" },
 		changedelete = { text = "~" },
 	},
 })
@@ -103,6 +107,42 @@ require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
 		python = { "ruff_format" },
+	},
+})
+
+local miniclue = require("mini.clue")
+miniclue.setup({
+	triggers = {
+		-- Leader triggers
+		{ mode = { "n", "x" }, keys = "<Leader>" },
+		-- `[` and `]` keys
+		{ mode = "n", keys = "[" },
+		{ mode = "n", keys = "]" },
+		-- Built-in completion
+		{ mode = "i", keys = "<C-x>" },
+		-- `g` key
+		{ mode = { "n", "x" }, keys = "g" },
+		-- Marks
+		{ mode = { "n", "x" }, keys = "'" },
+		{ mode = { "n", "x" }, keys = "`" },
+		-- Registers
+		{ mode = { "n", "x" }, keys = '"' },
+		{ mode = { "i", "c" }, keys = "<C-r>" },
+		-- Window commands
+		{ mode = "n", keys = "<C-w>" },
+		-- `z` key
+		{ mode = { "n", "x" }, keys = "z" },
+	},
+	clues = {
+		-- Enhance this by adding descriptions for <Leader> mapping groups
+		miniclue.gen_clues.square_brackets(),
+		miniclue.gen_clues.builtin_completion(),
+		miniclue.gen_clues.g(),
+		miniclue.gen_clues.marks(),
+		miniclue.gen_clues.registers(),
+		miniclue.gen_clues.windows(),
+		miniclue.gen_clues.z(),
+		{ mode = { "n", "x" }, keys = "<Leader>p", desc = "+vim.pack" },
 	},
 })
 

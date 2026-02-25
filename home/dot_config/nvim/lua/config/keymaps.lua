@@ -52,16 +52,14 @@ map({ "n", "v", "x" }, "<C-s>", [[:s/\V]], { desc = "Enter substitute mode in se
 -- Clear highlights on search when pressing <ESC> in normal mode
 map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
-map("n", "<leader>q", "<cmd>Trouble diagnostics toggle<CR>")
--- map("n", "<leader>q", vim.diagnostic.setloclist, {desc = "Open diagnostics Quickfix list"})
-
 -- Search and pickers.
-map("n", "<leader>f", "<cmd>Pick files<CR>")
+map("n", "<leader>f", "<cmd>Pick files<CR>", {desc = "TODO pick files"})
 map("n", "<leader>g", "<cmd>Pick grep_live<CR>")
 map("n", "<leader>b", "<cmd>Pick buffers<CR>")
 map("n", "<leader>h", "<cmd>Pick help<CR>")
 map("n", "<leader>ss", "<cmd>Pick buf_lines scope=current<CR>", { desc = "Fuzzy find in current buffer" })
 map("n", "<leader>sk", "<cmd>Pick keymaps<CR>")
+
 map("n", "<leader>sd", function()
 	MiniExtra.pickers.diagnostic({ scope = "current" })
 end, { desc = "Search diagnostics" })
@@ -72,6 +70,11 @@ map("n", "<leader>e", function()
 end)
 
 -- LSP and diagnostics.
+-- map("n", "<leader>q", "<cmd>Trouble diagnostics toggle<CR>", { desc = "Open diagnostics (Trouble)" })
+-- map("n", "<leader>xQ", "<cmd>Trouble qflist toggle<CR>", { desc = "Open diagnostic [Q]uickfix list (Trouble)" })
+
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+
 map("n", "<leader>sa", function()
 	require("actions-preview").code_actions()
 end, { desc = "Code actions preview" })
@@ -86,3 +89,15 @@ map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
 map("n", "n", "nzzzv")
 map("n", "N", "Nzzzv")
+
+-- Use CTRL+<hjkl> to switch between windows
+vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
+vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+
+-- TEMP: Disable arrow keys in normal mode
+vim.keymap.set("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
+vim.keymap.set("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
+vim.keymap.set("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
+vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')

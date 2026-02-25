@@ -11,7 +11,7 @@ background_blur 64
 background_opacity 0.5
 {{- end }}
 
-window_padding_width 10
+window_padding_width 8
 # Cursor trail seems to unnecessarily trigger tmux bell/notification, TODO: need to test
 # cursor_trail 1
 
@@ -27,6 +27,8 @@ bold_italic_font auto
 # See: https://sw.kovidgoyal.net/kitty/faq/#kitty-is-not-able-to-use-my-favorite-font
 # Nerd Fonts v3.3.0
 symbol_map U+e000-U+e00a,U+ea60-U+ebeb,U+e0a0-U+e0c8,U+e0ca,U+e0cc-U+e0d7,U+e200-U+e2a9,U+e300-U+e3e3,U+e5fa-U+e6b7,U+e700-U+e8ef,U+ed00-U+efc1,U+f000-U+f2ff,U+f000-U+f2e0,U+f300-U+f381,U+f400-U+f533,U+f0001-U+f1af0 JetBrainsMonoNL Nerd Font
+
+modify_font cell_height 110%
 
 {{ if eq .chezmoi.os "darwin" -}}
 font_size 18.0
