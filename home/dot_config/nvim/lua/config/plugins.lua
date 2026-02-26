@@ -1,29 +1,30 @@
 vim.pack.add({
-	-- Theme/UI
+	-- Theme & UI
 	{ src = "https://github.com/catppuccin/nvim" },
 	{ src = "https://github.com/nvim-mini/mini.icons" }, -- for mini.pick
 	{ src = "https://github.com/nvim-mini/mini.notify" },
 	{ src = "https://github.com/nvim-mini/mini.statusline" },
 
-	-- Editing/navigation
+	-- Editing & navigation
 	{ src = "https://github.com/stevearc/oil.nvim" },
 	{ src = "https://github.com/akinsho/toggleterm.nvim" },
 	{ src = "https://github.com/nvim-mini/mini.pairs" },
 	{ src = "https://github.com/nvim-mini/mini.surround" },
 	{ src = "https://github.com/NMAC427/guess-indent.nvim" },
 
-	-- Search/pickers
+	-- Search & pickers
 	{ src = "https://github.com/nvim-mini/mini.pick" }, -- for full exp: mini.icons + ripgrep
 	{ src = "https://github.com/nvim-mini/mini.extra" },
 
-	-- LSP/completion
+	-- LSP & completion
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 	{ src = "https://github.com/saghen/blink.cmp" },
 	{ src = "https://github.com/aznhe21/actions-preview.nvim" },
 	-- { src = "https://github.com/folke/trouble.nvim" }, -- i got weird behavior (probably skill issue)
 
-	-- Tooling/misc
+	-- Tooling & misc
+	{ src = "https://github.com/folke/snacks.nvim" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
@@ -31,7 +32,7 @@ vim.pack.add({
 	{ src = "https://github.com/vyfor/cord.nvim" },
 })
 
--- Theme/UI
+-- Theme & UI
 require("catppuccin").setup({
 	transparent_background = true,
 	float = { transparent = true },
@@ -40,7 +41,7 @@ require("mini.icons").setup()
 require("mini.notify").setup()
 require("mini.statusline").setup()
 
--- editing/navigation
+-- Editing & navigation
 require("mini.pairs").setup()
 require("mini.surround").setup()
 
@@ -64,7 +65,7 @@ require("toggleterm").setup({
 
 require("guess-indent").setup({})
 
--- Search/pickers
+-- Search & pickers
 require("mini.pick").setup({
 	window = {
 		config = function()
@@ -82,17 +83,22 @@ require("mini.pick").setup({
 })
 require("mini.extra").setup()
 
--- LSP/completion
+local Snacks = require("snacks")
+Snacks.setup({
+	picker = {},
+})
+
+-- LSP & completion
 require("mason").setup()
 require("blink.cmp").setup({
 	-- To install rust fuzzy finder:
 	-- cd $HOME/.local/share/nvim/site/pack/core/opt/blink.cmp
-	-- cargo build --release
+	-- cargo +nightly build --release
 	fuzzy = { implementation = "rust" },
 })
 -- require("trouble").setup()
 
--- Tooling/misc
+-- Tooling & misc
 require("gitsigns").setup({
 	signs = {
 		add = { text = "+" },

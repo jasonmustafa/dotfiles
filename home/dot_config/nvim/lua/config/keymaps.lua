@@ -52,19 +52,65 @@ map({ "n", "v", "x" }, "<C-s>", [[:s/\V]], { desc = "Enter substitute mode in se
 -- Clear highlights on search when pressing <ESC> in normal mode
 map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
--- Search and pickers.
-map("n", "<leader>f", "<cmd>Pick files<CR>", {desc = "TODO pick files"})
-map("n", "<leader>g", "<cmd>Pick grep_live<CR>")
-map("n", "<leader>b", "<cmd>Pick buffers<CR>")
-map("n", "<leader>h", "<cmd>Pick help<CR>")
-map("n", "<leader>ss", "<cmd>Pick buf_lines scope=current<CR>", { desc = "Fuzzy find in current buffer" })
-map("n", "<leader>sk", "<cmd>Pick keymaps<CR>")
+-- Search and pickers. (Mini Pick)
+-- map("n", "<leader>f", "<cmd>Pick files<CR>", { desc = "TODO pick files" })
+-- map("n", "<leader>g", "<cmd>Pick grep_live<CR>")
+-- map("n", "<leader>b", "<cmd>Pick buffers<CR>")
+-- map("n", "<leader>h", "<cmd>Pick help<CR>")
+-- map("n", "<leader>ss", "<cmd>Pick buf_lines scope=current<CR>", { desc = "Fuzzy find in current buffer" })
+-- map("n", "<leader>sk", "<cmd>Pick keymaps<CR>")
+
+-- map("n", "<leader>sd", function()
+-- 	MiniExtra.pickers.diagnostic({ scope = "current" })
+-- end, { desc = "Search diagnostics" })
+
+map("n", "<leader>sf", function()
+	Snacks.picker.smart()
+end, { desc = "Smart Find Files" })
+
+map({ "n", "x" }, "<leader>sw", function()
+	Snacks.picker.grep_word()
+end, { desc = "[S]earch current [W]ord" })
+
+map("n", "<leader>sg", function()
+	Snacks.picker.grep()
+end, { desc = "[S]earch [G]rep" })
 
 map("n", "<leader>sd", function()
-	MiniExtra.pickers.diagnostic({ scope = "current" })
-end, { desc = "Search diagnostics" })
+	Snacks.picker.diagnostics()
+end, { desc = "[S]earch [D]iagnostics" })
 
--- Explorer.
+map("n", "<leader>sr", function()
+	Snacks.picker.resume()
+end, { desc = "[S]earch [R]esume" })
+
+map("n", "<leader>s.", function()
+	Snacks.picker.recent()
+end, { desc = 'Search Recent Files ("." for recent)' })
+
+map("n", "<leader>sc", function()
+	Snacks.picker.command_history()
+end, { desc = "[S]earch [C]ommands" })
+
+map("n", "<leader><leader>", function()
+	Snacks.picker.buffers()
+end, { desc = "Buffers" })
+
+map("n", "<leader>/", function()
+	Snacks.picker.lines()
+end, { desc = "[/] Fuzzily search in current buffer" })
+
+map("n", "<leader>sk", function()
+	Snacks.picker.keymaps()
+end, { desc = "Keymaps" })
+
+map("n", "<leader>sh", function()
+	Snacks.picker.help()
+end, { desc = "Help Pages" })
+
+-- TODO: live grep
+
+-- Explorer
 map("n", "<leader>e", function()
 	require("oil").open_float()
 end)
