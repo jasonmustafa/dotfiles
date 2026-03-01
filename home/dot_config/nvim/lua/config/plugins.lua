@@ -4,7 +4,7 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-mini/mini.icons" }, -- for mini.pick
 	{ src = "https://github.com/nvim-mini/mini.notify" },
 	{ src = "https://github.com/nvim-mini/mini.statusline" },
-	{src = "https://github.com/nvim-mini/mini.cursorword" },
+	{ src = "https://github.com/nvim-mini/mini.cursorword" },
 
 	-- Editing & navigation
 	{ src = "https://github.com/stevearc/oil.nvim" },
@@ -30,6 +30,7 @@ vim.pack.add({
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
 	{ src = "https://github.com/nvim-mini/mini.clue" },
+	{ src = "https://github.com/folke/lazydev.nvim" },
 	{ src = "https://github.com/vyfor/cord.nvim" },
 })
 
@@ -41,7 +42,7 @@ require("catppuccin").setup({
 require("mini.icons").setup()
 require("mini.notify").setup()
 require("mini.statusline").setup()
-require('mini.cursorword').setup()
+require("mini.cursorword").setup()
 
 -- Editing & navigation
 require("mini.pairs").setup()
@@ -97,6 +98,16 @@ require("blink.cmp").setup({
 	-- cd $HOME/.local/share/nvim/site/pack/core/opt/blink.cmp
 	-- cargo +nightly build --release
 	fuzzy = { implementation = "rust" },
+	sources = {
+		default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+		providers = {
+			lazydev = {
+				name = "LazyDev",
+				module = "lazydev.integrations.blink",
+				score_offset = 100, -- show at top of completion list
+			},
+		},
+	},
 })
 -- require("trouble").setup()
 
@@ -152,6 +163,18 @@ miniclue.setup({
 		miniclue.gen_clues.z(),
 		{ mode = { "n", "x" }, keys = "<Leader>p", desc = "+vim.pack" },
 	},
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "lua",
+	once = true,
+	callback = function()
+		require("lazydev").setup({
+			library = {
+				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+			},
+		})
+	end,
 })
 
 require("cord").setup({
