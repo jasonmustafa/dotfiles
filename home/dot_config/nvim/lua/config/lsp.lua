@@ -1,12 +1,31 @@
 local servers = {
 	ty = {},
 	lua_ls = {
-		-- lazydev.nvim handles workspace.library injection per-buffer
+		-- For Neovim config files
+		on_init = function(client)
+			if client.workspace_folders then
+				local path = client.workspace_folders[1].name
+				if
+					path ~= vim.fn.stdpath("config")
+					and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
+				then
+					return
+				end
+			end
+
+			client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+				runtime = {
+					version = "LuaJIT",
+					path = { "lua/?.lua", "lua/?/init.lua" },
+				},
+				workspace = {
+					checkThirdParty = false,
+					library = { vim.env.VIMRUNTIME },
+				},
+			})
+		end,
 		settings = {
-			Lua = {
-				runtime = { version = "LuaJIT" },
-				workspace = { checkThirdParty = false },
-			},
+			Lua = {},
 		},
 	},
 }
@@ -17,7 +36,7 @@ for name, server in pairs(servers) do
 end
 
 vim.api.nvim_create_autocmd("LspAttach", {
-	group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
+	group = vim.api.nvim_create_augroup("snacks-lsp-attach", { clear = true }),
 	callback = function(event)
 		-- Find references for the word under your cursor
 		vim.keymap.set("n", "grr", function() Snacks.picker.lsp_references() end, { desc = "[G]oto [R]eferences" })

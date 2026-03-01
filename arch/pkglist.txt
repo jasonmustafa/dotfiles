@@ -126,6 +126,7 @@ ufw
 uv
 vim
 waybar
+wev
 wireplumber
 wl-clipboard
 wlsunset
