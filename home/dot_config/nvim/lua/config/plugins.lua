@@ -5,6 +5,7 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-mini/mini.notify" },
 	{ src = "https://github.com/nvim-mini/mini.statusline" },
 	{ src = "https://github.com/nvim-mini/mini.cursorword" },
+	{ src = "https://github.com/folke/todo-comments.nvim" },
 
 	-- Editing & navigation
 	{ src = "https://github.com/stevearc/oil.nvim" },
@@ -20,6 +21,7 @@ vim.pack.add({
 	-- LSP & completion
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
+	{ src = "https://github.com/rafamadriz/friendly-snippets" }, -- for blink snippets
 	{ src = "https://github.com/saghen/blink.cmp" },
 	{ src = "https://github.com/aznhe21/actions-preview.nvim" },
 	-- { src = "https://github.com/folke/trouble.nvim" }, -- i got weird behavior (probably skill issue)
@@ -42,6 +44,7 @@ require("mini.icons").setup()
 require("mini.notify").setup()
 require("mini.statusline").setup()
 require("mini.cursorword").setup()
+require("todo-comments").setup({ signs = false })
 
 -- Editing & navigation
 require("mini.pairs").setup()
@@ -93,12 +96,14 @@ Snacks.setup({
 -- LSP & completion
 require("mason").setup()
 require("blink.cmp").setup({
+	appearance = { nerd_font_variant = "normal" },
+	sources = { default = { "lsp", "path", "snippets" } },
 	-- To install rust fuzzy finder:
 	-- cd $HOME/.local/share/nvim/site/pack/core/opt/blink.cmp
 	-- cargo +nightly build --release
 	fuzzy = { implementation = "rust" },
+	signature = { enabled = true },
 })
--- require("trouble").setup()
 
 -- Tooling & misc
 require("gitsigns").setup({
