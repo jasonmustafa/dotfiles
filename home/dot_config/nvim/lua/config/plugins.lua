@@ -4,6 +4,7 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-mini/mini.icons" }, -- for mini.pick
 	{ src = "https://github.com/nvim-mini/mini.notify" },
 	{ src = "https://github.com/nvim-mini/mini.statusline" },
+	{src = "https://github.com/nvim-mini/mini.cursorword" },
 
 	-- Editing & navigation
 	{ src = "https://github.com/stevearc/oil.nvim" },
@@ -40,6 +41,7 @@ require("catppuccin").setup({
 require("mini.icons").setup()
 require("mini.notify").setup()
 require("mini.statusline").setup()
+require('mini.cursorword').setup()
 
 -- Editing & navigation
 require("mini.pairs").setup()

@@ -39,6 +39,22 @@ local function language_format()
 	end
 end
 
+local function chezmoi_nvim_dir()
+	local source = vim.trim(vim.fn.system("chezmoi source-path"))
+	local path = source .. "/home/dot_config/nvim"
+
+	if vim.v.shell_error == 0 and source ~= "" and vim.fn.isdirectory(path) == 1 then
+		return path
+	end
+
+	path = vim.fn.expand("~/.local/share/chezmoi/home/dot_config/nvim")
+	if vim.fn.isdirectory(path) == 1 then
+		return path
+	end
+
+	return vim.fn.stdpath("config")
+end
+
 -- File and session.
 map("n", "<leader>w", "<cmd>write<CR>")
 map({ "n", "v", "x" }, "<leader>o", "<cmd>update<CR> :source<CR>")
@@ -64,73 +80,36 @@ map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 -- 	MiniExtra.pickers.diagnostic({ scope = "current" })
 -- end, { desc = "Search diagnostics" })
 
-map("n", "<leader>sf", function()
-	Snacks.picker.smart()
-end, { desc = "Smart Find Files" })
+map("n", "<leader>sf", function() Snacks.picker.smart() end, { desc = "Smart Find Files" })
+map({ "n", "v" }, "<leader>sw", function() Snacks.picker.grep_word() end, { desc = "[S]earch current [W]ord" })
+map("n", "<leader>sg", function() Snacks.picker.grep() end, { desc = "[S]earch [G]rep" })
+map("n", "<leader>sd", function() Snacks.picker.diagnostics() end, { desc = "[S]earch [D]iagnostics" })
+map("n", "<leader>sr", function() Snacks.picker.resume() end, { desc = "[S]earch [R]esume" })
+map("n", "<leader>s.", function() Snacks.picker.recent() end, { desc = 'Search Recent Files ("." for recent)' })
+map("n", "<leader>sc", function() Snacks.picker.command_history() end, { desc = "[S]earch [C]ommands" })
+map("n", "<leader><leader>", function() Snacks.picker.buffers() end, { desc = "[ ] Find existing buffers" })
+map("n", "<leader>/", function() Snacks.picker.lines() end, { desc = "[/] Fuzzily search lines in current buffer" })
+map("n", "<leader>s/", function() Snacks.picker.grep_buffers() end, { desc = "[S]earch (grep) [/] in Open Files" })
+map("n", "<leader>sk", function() Snacks.picker.keymaps() end, { desc = "[S]earch [K]eymaps" })
+map("n", "<leader>sh", function() Snacks.picker.help() end, { desc = "[Search] [Help]" })
 
-map({ "n", "x" }, "<leader>sw", function()
-	Snacks.picker.grep_word()
-end, { desc = "[S]earch current [W]ord" })
-
-map("n", "<leader>sg", function()
-	Snacks.picker.grep()
-end, { desc = "[S]earch [G]rep" })
-
-map("n", "<leader>sd", function()
-	Snacks.picker.diagnostics()
-end, { desc = "[S]earch [D]iagnostics" })
-
-map("n", "<leader>sr", function()
-	Snacks.picker.resume()
-end, { desc = "[S]earch [R]esume" })
-
-map("n", "<leader>s.", function()
-	Snacks.picker.recent()
-end, { desc = 'Search Recent Files ("." for recent)' })
-
-map("n", "<leader>sc", function()
-	Snacks.picker.command_history()
-end, { desc = "[S]earch [C]ommands" })
-
-map("n", "<leader><leader>", function()
-	Snacks.picker.buffers()
-end, { desc = "Buffers" })
-
-map("n", "<leader>/", function()
-	Snacks.picker.lines()
-end, { desc = "[/] Fuzzily search in current buffer" })
-
-map("n", "<leader>sk", function()
-	Snacks.picker.keymaps()
-end, { desc = "Keymaps" })
-
-map("n", "<leader>sh", function()
-	Snacks.picker.help()
-end, { desc = "Help Pages" })
-
--- TODO: live grep
+map(
+	"n",
+	"<leader>sn",
+	function() Snacks.picker.files({ cwd = chezmoi_nvim_dir() }) end,
+	{ desc = "[S]earch [N]eovim files" }
+)
 
 -- Explorer
-map("n", "<leader>e", function()
-	require("oil").open_float()
-end)
+map("n", "<leader>e", function() require("oil").open_float() end)
 
--- LSP and diagnostics.
--- map("n", "<leader>q", "<cmd>Trouble diagnostics toggle<CR>", { desc = "Open diagnostics (Trouble)" })
--- map("n", "<leader>xQ", "<cmd>Trouble qflist toggle<CR>", { desc = "Open diagnostic [Q]uickfix list (Trouble)" })
-
+-- LSP and diagnostics
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
-map("n", "<leader>sa", function()
-	require("actions-preview").code_actions()
-end, { desc = "Code actions preview" })
+map("n", "<leader>sa", function() require("actions-preview").code_actions() end, { desc = "Code actions preview" })
+map("n", "<leader>f", language_format, { desc = "Format buffer" })
 
-map("n", "<leader>lf", language_format, { desc = "Format buffer" })
-
--- Plugin maintenance.
-map("n", "<leader>pc", pack_clean, { desc = "Remove unused plugins" })
-
--- Keep search and paging context centered.
+-- Keep search and paging context centered
 map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
 map("n", "n", "nzzzv")
@@ -141,6 +120,9 @@ vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left wind
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+
+-- Plugin maintenance
+map("n", "<leader>pc", pack_clean, { desc = "Remove unused plugins" })
 
 -- TEMP: Disable arrow keys in normal mode
 vim.keymap.set("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
