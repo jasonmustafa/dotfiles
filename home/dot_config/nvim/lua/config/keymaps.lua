@@ -68,18 +68,6 @@ map({ "n", "v", "x" }, "<C-s>", [[:s/\V]], { desc = "Enter substitute mode in se
 -- Clear highlights on search when pressing <ESC> in normal mode
 map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
--- Search and pickers. (Mini Pick)
--- map("n", "<leader>f", "<cmd>Pick files<CR>", { desc = "TODO pick files" })
--- map("n", "<leader>g", "<cmd>Pick grep_live<CR>")
--- map("n", "<leader>b", "<cmd>Pick buffers<CR>")
--- map("n", "<leader>h", "<cmd>Pick help<CR>")
--- map("n", "<leader>ss", "<cmd>Pick buf_lines scope=current<CR>", { desc = "Fuzzy find in current buffer" })
--- map("n", "<leader>sk", "<cmd>Pick keymaps<CR>")
-
--- map("n", "<leader>sd", function()
--- 	MiniExtra.pickers.diagnostic({ scope = "current" })
--- end, { desc = "Search diagnostics" })
-
 map("n", "<leader>sf", function() Snacks.picker.smart() end, { desc = "Smart Find Files" })
 map({ "n", "v" }, "<leader>sw", function() Snacks.picker.grep_word() end, { desc = "[S]earch current [W]ord" })
 map("n", "<leader>sg", function() Snacks.picker.grep() end, { desc = "[S]earch [G]rep" })
