@@ -47,30 +47,79 @@ require("catppuccin").setup({
 require("mini.icons").setup()
 require("mini.notify").setup()
 
--- local statusline = require("mini.statusline")
--- statusline.setup()
--- statusline.section_location = function() return "%2l:%-2v" end
+local catppuccin_mocha = {
+	blue     = "#89b4fa",
+	lavender = "#b4befe",
+	green    = "#a6e3a1",
+	teal     = "#94e2d5",
+	mauve    = "#cba6f7",
+	peach    = "#fab387",
+	red      = "#f38ba8",
+	maroon   = "#eba0ac",
+	flamingo = "#f2cdcd",
+	text     = "#cdd6f4",
+	base     = "#1e1e2e",
+	mantle   = "#181825",
+	surface0 = "#313244",
+	surface1 = "#45475a",
+	overlay0 = "#6c7086",
+}
 
--- sections = {
---     lualine_a = {'mode'},
---     lualine_b = {'branch', 'diff', 'diagnostics'},
---     lualine_c = {'filename'},
---     lualine_x = {'encoding', 'fileformat', 'filetype'},
---     lualine_y = {'progress'},
---     lualine_z = {'location'}
---   },
+local C = catppuccin_mocha
+local custom_theme = {
+	normal = {
+		a = { bg = C.lavender, fg = C.mantle, gui = "bold" },
+		b = { bg = C.surface0, fg = C.lavender },
+		c = { bg = "NONE", fg = C.text },
+		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
+		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
+	},
+	insert = {
+		a = { bg = C.teal, fg = C.base, gui = "bold" },
+		b = { bg = C.surface0, fg = C.teal },
+		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
+		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
+	},
+	terminal = {
+		a = { bg = C.green, fg = C.base, gui = "bold" },
+		b = { bg = C.surface0, fg = C.green },
+		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
+		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
+	},
+	command = {
+		a = { bg = C.peach, fg = C.base, gui = "bold" },
+		b = { bg = C.surface0, fg = C.peach },
+		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
+		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
+	},
+	visual = {
+		a = { bg = C.mauve, fg = C.base, gui = "bold" },
+		b = { bg = C.surface0, fg = C.mauve },
+		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
+		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
+	},
+	replace = {
+		a = { bg = C.red, fg = C.base, gui = "bold" },
+		b = { bg = C.surface0, fg = C.red },
+		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
+		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
+	},
+	inactive = {
+		a = { bg = "NONE", fg = C.blue },
+		b = { bg = "NONE", fg = C.surface1, gui = "bold" },
+		c = { bg = "NONE", fg = C.overlay0 },
+	},
+}
 
 require("lualine").setup({
-	options = {
-		component_separators = "",
-		section_separators = { left = "", right = "" },
-	},
+	options = { theme = custom_theme, component_separators = "", section_separators = { left = "", right = "" } },
 	sections = {
-		lualine_a = { { "mode", separator = { left = "" } } },
+		lualine_a = { { "mode", separator = { left = "" , right = ""}, right_padding = 2 } },
 		lualine_b = { "branch" },
-		lualine_c = { "progress", "location", { "filename", path = 1 }, "diff", "diagnostics" },
-		lualine_x = { "lsp_status", "encoding", "fileformat", "filetype" },
-		lualine_z = { { "location", separator = { right = "" } } },
+		lualine_c = { "diff", "diagnostics" },
+		lualine_x = { "lsp_status", "progress" },
+		lualine_y = { "location" },
+		lualine_z = { { "filename", separator = { left = "", right = "" }, left_padding = 2 } },
 	},
 })
 
