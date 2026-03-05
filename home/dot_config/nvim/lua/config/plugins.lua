@@ -16,6 +16,7 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-mini/mini.surround" },
 	{ src = "https://github.com/NMAC427/guess-indent.nvim" },
 	{ src = "https://github.com/nvim-mini/mini.ai" },
+	{ src = "https://github.com/mfussenegger/nvim-lint" },
 
 	-- LSP & completion
 	{ src = "https://github.com/mason-org/mason.nvim" },
@@ -32,6 +33,7 @@ vim.pack.add({
 	{ src = "https://github.com/stevearc/conform.nvim" },
 	{ src = "https://github.com/nvim-mini/mini.clue" },
 	{ src = "https://github.com/vyfor/cord.nvim" },
+	{ src = "https://github.com/xvzc/chezmoi.nvim" },
 })
 
 -- Theme & UI
@@ -47,19 +49,44 @@ require("catppuccin").setup({
 require("mini.icons").setup()
 require("mini.notify").setup()
 
+local mode_map = {
+	["NORMAL"] = "N",
+	["O-PENDING"] = "N?",
+	["INSERT"] = "I",
+	["VISUAL"] = "V",
+	["V-BLOCK"] = "VB",
+	["V-LINE"] = "VL",
+	["V-REPLACE"] = "VR",
+	["REPLACE"] = "R",
+	["COMMAND"] = "!",
+	["SHELL"] = "SH",
+	["TERMINAL"] = "T",
+	["EX"] = "X",
+	["S-BLOCK"] = "SB",
+	["S-LINE"] = "SL",
+	["SELECT"] = "S",
+	["CONFIRM"] = "Y?",
+	["MORE"] = "M",
+}
+require("lualine").setup({
+	sections = {
+		lualine_a = { { "mode", fmt = function(s) return mode_map[s] or s end } },
+	},
+})
+
 local catppuccin_mocha = {
-	blue     = "#89b4fa",
+	blue = "#89b4fa",
 	lavender = "#b4befe",
-	green    = "#a6e3a1",
-	teal     = "#94e2d5",
-	mauve    = "#cba6f7",
-	peach    = "#fab387",
-	red      = "#f38ba8",
-	maroon   = "#eba0ac",
+	green = "#a6e3a1",
+	teal = "#94e2d5",
+	mauve = "#cba6f7",
+	peach = "#fab387",
+	red = "#f38ba8",
+	maroon = "#eba0ac",
 	flamingo = "#f2cdcd",
-	text     = "#cdd6f4",
-	base     = "#1e1e2e",
-	mantle   = "#181825",
+	text = "#cdd6f4",
+	base = "#1e1e2e",
+	mantle = "#181825",
 	surface0 = "#313244",
 	surface1 = "#45475a",
 	overlay0 = "#6c7086",
@@ -68,41 +95,41 @@ local catppuccin_mocha = {
 local C = catppuccin_mocha
 local custom_theme = {
 	normal = {
-		a = { bg = C.lavender, fg = C.mantle, gui = "bold" },
-		b = { bg = C.surface0, fg = C.lavender },
+		a = { bg = C.blue, fg = C.mantle, gui = "bold" },
+		b = { bg = C.surface0, fg = C.blue },
 		c = { bg = "NONE", fg = C.text },
-		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
-		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
+		y = { bg = C.surface0, fg = C.maroon, gui = "bold" },
+		z = { bg = C.surface1, fg = C.flamingo, gui = "bold" },
 	},
 	insert = {
 		a = { bg = C.teal, fg = C.base, gui = "bold" },
 		b = { bg = C.surface0, fg = C.teal },
-		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
-		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
+		y = { bg = C.surface0, fg = C.maroon, gui = "bold" },
+		z = { bg = C.surface1, fg = C.flamingo, gui = "bold" },
 	},
 	terminal = {
 		a = { bg = C.green, fg = C.base, gui = "bold" },
 		b = { bg = C.surface0, fg = C.green },
-		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
-		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
+		y = { bg = C.surface0, fg = C.maroon, gui = "bold" },
+		z = { bg = C.surface1, fg = C.flamingo, gui = "bold" },
 	},
 	command = {
 		a = { bg = C.peach, fg = C.base, gui = "bold" },
 		b = { bg = C.surface0, fg = C.peach },
-		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
-		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
+		y = { bg = C.surface0, fg = C.maroon, gui = "bold" },
+		z = { bg = C.surface1, fg = C.flamingo, gui = "bold" },
 	},
 	visual = {
 		a = { bg = C.mauve, fg = C.base, gui = "bold" },
 		b = { bg = C.surface0, fg = C.mauve },
-		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
-		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
+		y = { bg = C.surface0, fg = C.maroon, gui = "bold" },
+		z = { bg = C.surface1, fg = C.flamingo, gui = "bold" },
 	},
 	replace = {
 		a = { bg = C.red, fg = C.base, gui = "bold" },
 		b = { bg = C.surface0, fg = C.red },
-		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
-		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
+		y = { bg = C.surface0, fg = C.maroon, gui = "bold" },
+		z = { bg = C.surface1, fg = C.flamingo, gui = "bold" },
 	},
 	inactive = {
 		a = { bg = "NONE", fg = C.blue },
@@ -112,11 +139,26 @@ local custom_theme = {
 }
 
 require("lualine").setup({
-	options = { theme = custom_theme, component_separators = "", section_separators = { left = "", right = "" } },
+	options = {
+		theme = custom_theme,
+		globalstatus = true,
+		component_separators = "",
+		section_separators = { left = "", right = "" },
+	},
 	sections = {
-		lualine_a = { { "mode", separator = { left = "" , right = ""}, right_padding = 2 } },
+		lualine_a = {
+			{
+				"mode",
+				fmt = function(s) return mode_map[s] or s end,
+				separator = { left = "", right = "" },
+				right_padding = 2,
+			},
+		},
 		lualine_b = { "branch" },
-		lualine_c = { "diff", "diagnostics" },
+		lualine_c = {
+			{ "diff", diff_color = { added = { fg = C.teal }, modified = { fg = C.peach } } },
+			"diagnostics",
+		},
 		lualine_x = { "lsp_status", "progress" },
 		lualine_y = { "location" },
 		lualine_z = { { "filename", separator = { left = "", right = "" }, left_padding = 2 } },
@@ -137,6 +179,7 @@ require("mini.pairs").setup()
 -- - sr)'  - [S]urround [R]eplace [)] [']
 require("mini.surround").setup()
 
+-- check mini.files, maybe has both oil/tree
 require("oil").setup({
 	lsp_file_methods = { autosave_changes = true },
 	columns = { "permissions", "icon" },
@@ -163,6 +206,19 @@ require("guess-indent").setup({})
 -- - yinq - [Y]ank [I]nside [Next] [Q]uote
 -- - ci'  - [C]hange [I]nside [']quote
 require("mini.ai").setup({ n_lines = 500 })
+
+-- TODO: finish
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+	callback = function()
+		-- try_lint without arguments runs the linters defined in `linters_by_ft`
+		-- for the current filetype
+		require("lint").try_lint()
+
+		-- You can call `try_lint` with a linter name or a list of names to always
+		-- run specific linters, independent of the `linters_by_ft` configuration
+		require("lint").try_lint("cspell")
+	end,
+})
 
 local Snacks = require("snacks")
 Snacks.setup({
