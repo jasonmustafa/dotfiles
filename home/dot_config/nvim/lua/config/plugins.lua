@@ -47,6 +47,7 @@ require("catppuccin").setup({
 	},
 })
 require("mini.icons").setup()
+MiniIcons.mock_nvim_web_devicons()
 require("mini.notify").setup()
 
 local mode_map = {
@@ -95,44 +96,44 @@ local catppuccin_mocha = {
 local C = catppuccin_mocha
 local custom_theme = {
 	normal = {
-		a = { bg = C.blue, fg = C.mantle, gui = "bold" },
-		b = { bg = C.surface0, fg = C.blue },
+		a = { bg = C.lavender, fg = C.mantle, gui = "bold" },
+		b = { bg = C.surface0, fg = C.lavender },
 		c = { bg = "NONE", fg = C.text },
-		y = { bg = C.surface0, fg = C.maroon, gui = "bold" },
-		z = { bg = C.surface1, fg = C.flamingo, gui = "bold" },
+		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
+		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
 	},
 	insert = {
 		a = { bg = C.teal, fg = C.base, gui = "bold" },
 		b = { bg = C.surface0, fg = C.teal },
-		y = { bg = C.surface0, fg = C.maroon, gui = "bold" },
-		z = { bg = C.surface1, fg = C.flamingo, gui = "bold" },
+		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
+		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
 	},
 	terminal = {
 		a = { bg = C.green, fg = C.base, gui = "bold" },
 		b = { bg = C.surface0, fg = C.green },
-		y = { bg = C.surface0, fg = C.maroon, gui = "bold" },
-		z = { bg = C.surface1, fg = C.flamingo, gui = "bold" },
+		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
+		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
 	},
 	command = {
 		a = { bg = C.peach, fg = C.base, gui = "bold" },
 		b = { bg = C.surface0, fg = C.peach },
-		y = { bg = C.surface0, fg = C.maroon, gui = "bold" },
-		z = { bg = C.surface1, fg = C.flamingo, gui = "bold" },
+		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
+		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
 	},
 	visual = {
 		a = { bg = C.mauve, fg = C.base, gui = "bold" },
 		b = { bg = C.surface0, fg = C.mauve },
-		y = { bg = C.surface0, fg = C.maroon, gui = "bold" },
-		z = { bg = C.surface1, fg = C.flamingo, gui = "bold" },
+		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
+		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
 	},
 	replace = {
 		a = { bg = C.red, fg = C.base, gui = "bold" },
 		b = { bg = C.surface0, fg = C.red },
-		y = { bg = C.surface0, fg = C.maroon, gui = "bold" },
-		z = { bg = C.surface1, fg = C.flamingo, gui = "bold" },
+		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
+		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
 	},
 	inactive = {
-		a = { bg = "NONE", fg = C.blue },
+		a = { bg = "NONE", fg = C.lavender },
 		b = { bg = "NONE", fg = C.surface1, gui = "bold" },
 		c = { bg = "NONE", fg = C.overlay0 },
 	},
@@ -161,7 +162,7 @@ require("lualine").setup({
 		},
 		lualine_x = { "lsp_status", "progress" },
 		lualine_y = { "location" },
-		lualine_z = { { "filename", separator = { left = "", right = "" }, left_padding = 2 } },
+		lualine_z = { {"filetype", icon_only = true, icon = {align = 'right'} }, { "filename", separator = { left = "", right = "" }, left_padding = 2 } },
 	},
 })
 

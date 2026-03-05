@@ -13,7 +13,7 @@ RED='#f38ba8'
 TEAL='#94e2d5'
 MAUVE='#cba6f7'
 BLUE='#89b4fa'
-SURFACE1='#45475a'   # pill background
+CRUST='#11111b'     # fg on accent backgrounds
 
 # Nerd Font icons (trailing space for padding)
 I_TMUX=$'\uebc8 '    # ebc8  tmux
@@ -40,5 +40,5 @@ else
 fi
 
 # Build pill: ◖ icon session ◗
-printf '#[fg=%s]%s#[fg=%s,bg=%s,bold] %s%s #[nobold,fg=%s,bg=default]%s' \
-    "$SURFACE1" "$L" "$COLOR" "$SURFACE1" "$ICON" "$4" "$SURFACE1" "$R"
+printf '#[fg=%s]%s#[fg=%s,bg=%s,bold] %s %s #[nobold,fg=%s,bg=default]%s' \
+    "$COLOR" "$L" "$CRUST" "$COLOR" "$ICON" "$4" "$COLOR" "$R"
