@@ -18,6 +18,7 @@ docker
 doublecmd-qt6
 duf
 efibootmgr
+eslint
 ex-vi-compat
 eza
 fastfetch
@@ -118,6 +119,7 @@ tesseract
 tinymist
 tmux
 trash-cli
+tree-sitter-cli
 ttf-jetbrains-mono
 ttf-jetbrains-mono-nerd
 ttf-nerd-fonts-symbols

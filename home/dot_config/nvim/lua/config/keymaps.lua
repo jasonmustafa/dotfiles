@@ -89,7 +89,9 @@ map(
 )
 
 -- Explorer
-map("n", "<leader>e", function() require("oil").open_float() end)
+-- map("n", "<leader>e", function() require("oil").open_float() end)
+map("n", "<leader>e", "<cmd>lua MiniFiles.open()<CR>")
+map("n", "\\", "<cmd>Neotree reveal<CR>", { desc = "NeoTree reveal" })
 
 -- LSP and diagnostics
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })

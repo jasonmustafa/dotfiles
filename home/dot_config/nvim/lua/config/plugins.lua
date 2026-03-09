@@ -1,4 +1,8 @@
 vim.pack.add({
+	-- Dependencies
+	{ src = "https://github.com/MunifTanjim/nui.nvim" }, -- for neo-tree
+	{ src = "https://github.com/nvim-lua/plenary.nvim" }, -- for neo-tree
+
 	-- Theme & UI
 	{ src = "https://github.com/catppuccin/nvim" },
 	{ src = "https://github.com/nvim-mini/mini.icons" }, -- for mini.statusline
@@ -11,6 +15,8 @@ vim.pack.add({
 
 	-- Editing & navigation
 	{ src = "https://github.com/stevearc/oil.nvim" },
+	{ src = "https://github.com/nvim-mini/mini.files" },
+	{ src = "https://github.com/nvim-neo-tree/neo-tree.nvim" },
 	{ src = "https://github.com/akinsho/toggleterm.nvim" },
 	{ src = "https://github.com/nvim-mini/mini.pairs" },
 	{ src = "https://github.com/nvim-mini/mini.surround" },
@@ -24,7 +30,6 @@ vim.pack.add({
 	{ src = "https://github.com/rafamadriz/friendly-snippets" }, -- for blink snippets
 	{ src = "https://github.com/saghen/blink.cmp" },
 	{ src = "https://github.com/aznhe21/actions-preview.nvim" },
-	-- { src = "https://github.com/folke/trouble.nvim" }, -- i got weird behavior (probably skill issue)
 
 	-- Tooling & misc
 	{ src = "https://github.com/folke/snacks.nvim" },
@@ -32,8 +37,10 @@ vim.pack.add({
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
 	{ src = "https://github.com/nvim-mini/mini.clue" },
+	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 	{ src = "https://github.com/vyfor/cord.nvim" },
-	{ src = "https://github.com/xvzc/chezmoi.nvim" },
+	-- TODO: setup
+	-- { src = "https://github.com/xvzc/chezmoi.nvim" },
 })
 
 -- Theme & UI
@@ -51,23 +58,23 @@ MiniIcons.mock_nvim_web_devicons()
 require("mini.notify").setup()
 
 local mode_map = {
-	["NORMAL"] = "N",
-	["O-PENDING"] = "N?",
-	["INSERT"] = "I",
-	["VISUAL"] = "V",
-	["V-BLOCK"] = "VB",
-	["V-LINE"] = "VL",
-	["V-REPLACE"] = "VR",
-	["REPLACE"] = "R",
-	["COMMAND"] = "!",
-	["SHELL"] = "SH",
-	["TERMINAL"] = "T",
-	["EX"] = "X",
-	["S-BLOCK"] = "SB",
-	["S-LINE"] = "SL",
-	["SELECT"] = "S",
-	["CONFIRM"] = "Y?",
-	["MORE"] = "M",
+	["NORMAL"] = " N",
+	["O-PENDING"] = "󰇘 N?",
+	["INSERT"] = " I",
+	["VISUAL"] = " V",
+	["V-BLOCK"] = " VB",
+	["V-LINE"] = " VL",
+	["V-REPLACE"] = " VR",
+	["REPLACE"] = "󰬸 R",
+	["COMMAND"] = " !",
+	["SHELL"] = " SH",
+	["TERMINAL"] = " T",
+	["EX"] = "󰆍 X",
+	["S-BLOCK"] = "󰓡 SB",
+	["S-LINE"] = "󰓡 SL",
+	["SELECT"] = "󰓡 S",
+	["CONFIRM"] = " Y",
+	["MORE"] = "󰇙 M",
 }
 
 local catppuccin_mocha = {
@@ -153,8 +160,8 @@ require("lualine").setup({
 		},
 		lualine_b = { "branch" },
 		lualine_c = {
-			{ "diff", diff_color = { added = { fg = C.teal }, modified = { fg = C.peach } } },
-			{ "diagnostics", diagnostics_color = { warn = { fg = C.rosewater } } },
+			{ "diff", diff_color = { added = { fg = C.green }, modified = { fg = C.rosewater } } },
+			{ "diagnostics", diagnostics_color = { warn = { fg = C.flamingo } } },
 		},
 		lualine_x = { "lsp_status", "progress", { "filetype", icon_only = true, icon = { align = "right" } } },
 		lualine_y = { "location" },
@@ -176,17 +183,23 @@ require("mini.pairs").setup()
 -- - sr)'  - [S]urround [R]eplace [)] [']
 require("mini.surround").setup()
 
--- check mini.files, maybe has both oil/tree
-require("oil").setup({
-	lsp_file_methods = { autosave_changes = true },
-	columns = { "permissions", "icon" },
-	view_options = { show_hidden = true },
-	delete_to_trash = true,
-	float = {
-		max_width = 0.9,
-		max_height = 0.9,
-		border = "rounded",
-	},
+-- require("oil").setup({
+-- 	lsp_file_methods = { autosave_changes = true },
+-- 	columns = { "permissions", "icon" },
+-- 	view_options = { show_hidden = true },
+-- 	delete_to_trash = true,
+-- 	float = { max_width = 0.9, max_height = 0.9, border = "rounded" },
+-- })
+
+require("mini.files").setup({
+	options = { permanent_delete = false, use_as_default_explorer = false },
+	windows = { preview = true },
+})
+
+require("neo-tree").setup({
+	filesystem = { window = { mappings = { ["\\"] = "close_window" } } },
+	window = { position = "float" },
+	popup_border_style = "",
 })
 
 require("toggleterm").setup({
@@ -204,16 +217,19 @@ require("guess-indent").setup({})
 -- - ci'  - [C]hange [I]nside [']quote
 require("mini.ai").setup({ n_lines = 500 })
 
--- TODO: finish
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 	callback = function()
-		-- try_lint without arguments runs the linters defined in `linters_by_ft`
-		-- for the current filetype
-		require("lint").try_lint()
+		local lint = require("lint")
+		lint.linters_by_ft = {
+			dockerfile = { "hadolint" },
+			typescript = { "eslint" },
+			zsh = { "zsh" },
+		}
 
-		-- You can call `try_lint` with a linter name or a list of names to always
-		-- run specific linters, independent of the `linters_by_ft` configuration
-		require("lint").try_lint("cspell")
+		-- Only run the linter in buffers that can be modified
+		if vim.bo.modifiable then
+			lint.try_lint()
+		end
 	end,
 })
 
@@ -236,48 +252,47 @@ require("blink.cmp").setup({
 })
 
 -- Tooling & misc
-require("nvim-treesitter").setup({
-	callback = function()
-		local parsers = {
-			"bash",
-			"c",
-			"diff",
-			"dockerfile",
-			"html",
-			"lua",
-			"luadoc",
-			"markdown",
-			"markdown_inline",
-			"python",
-			"query",
-			"typescript",
-			"vim",
-			"vimdoc",
-			"zsh",
-		}
-		require("nvim-treesitter").install(parsers)
-		vim.api.nvim_create_autocmd("FileType", {
-			callback = function(args)
-				local buf, filetype = args.buf, args.match
 
-				local language = vim.treesitter.language.get_lang(filetype)
-				if not language then
-					return
-				end
+-- Highlight, edit, and navigate code
+-- :TSUpdate to update parsers
+local ts_parsers = {
+	"bash",
+	"c",
+	"diff",
+	"dockerfile",
+	"html",
+	"json",
+	"lua",
+	"luadoc",
+	"markdown",
+	"markdown_inline",
+	"python",
+	"query",
+	"typescript",
+	"vim",
+	"vimdoc",
+	"zsh",
+}
+require("nvim-treesitter").install(ts_parsers)
+vim.api.nvim_create_autocmd("FileType", {
+	callback = function(args)
+		local buf, filetype = args.buf, args.match
 
-				-- check if parser exists and load it
-				if not vim.treesitter.language.add(language) then
-					return
-				end
-				-- enables syntax highlighting and other treesitter features
-				vim.treesitter.start(buf, language)
+		local language = vim.treesitter.language.get_lang(filetype)
+		if not language then
+			return
+		end
 
-				-- optional: enable treesitter based folds
+		-- check if parser exists and load it
+		if not vim.treesitter.language.add(language) then
+			return
+		end
 
-				-- enables treesitter based indentation
-				vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-			end,
-		})
+		-- enables syntax highlighting and other treesitter features
+		vim.treesitter.start(buf, language)
+
+		-- enables treesitter based indentation
+		vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 	end,
 })
 
@@ -332,6 +347,16 @@ miniclue.setup({
 		miniclue.gen_clues.z(),
 		{ mode = { "n", "x" }, keys = "<Leader>p", desc = "+vim.pack" },
 	},
+	window = { delay = 0 },
+})
+
+require("render-markdown").setup({
+	-- Makes headings render with highlighted blocks rather than full width blocks
+	heading = { width = "block", left_pad = 2, right_pad = 4 },
+	-- Keeps lines around rendered code blocks for opening and closing triple backticks
+	code = { border = "thick" },
+	-- Renders tables with rounded corners
+	pipe_table = { preset = "round" },
 })
 
 require("cord").setup({
