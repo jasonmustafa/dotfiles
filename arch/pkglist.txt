@@ -27,6 +27,7 @@ firefox
 fisher
 flatpak
 foot
+fuzzel
 fzf
 gdb
 ghostty
@@ -34,6 +35,7 @@ gimp
 git
 git-delta
 glow
+gnome-keyring
 gnome-themes-extra
 go-yq
 greetd
@@ -77,6 +79,7 @@ mpv
 nano
 nautilus
 networkmanager
+niri
 noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
@@ -132,8 +135,10 @@ wl-clipboard
 wlsunset
 woff2-font-awesome
 wofi
+xdg-desktop-portal-gnome
 xdg-desktop-portal-gtk
 xdg-desktop-portal-hyprland
+xwayland-satellite
 yazi
 zathura
 zathura-pdf-poppler

@@ -13,6 +13,7 @@ noctalia-shell
 papirus-folders-catppuccin-git
 paru
 paru-debug
+peaclock
 pokeget
 pwvucontrol
 sesh-bin

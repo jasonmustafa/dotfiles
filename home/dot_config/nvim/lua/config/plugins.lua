@@ -69,13 +69,9 @@ local mode_map = {
 	["CONFIRM"] = "Y?",
 	["MORE"] = "M",
 }
-require("lualine").setup({
-	sections = {
-		lualine_a = { { "mode", fmt = function(s) return mode_map[s] or s end } },
-	},
-})
 
 local catppuccin_mocha = {
+	rosewater = "#f5e0dc",
 	blue = "#89b4fa",
 	lavender = "#b4befe",
 	green = "#a6e3a1",
@@ -158,11 +154,11 @@ require("lualine").setup({
 		lualine_b = { "branch" },
 		lualine_c = {
 			{ "diff", diff_color = { added = { fg = C.teal }, modified = { fg = C.peach } } },
-			"diagnostics",
+			{ "diagnostics", diagnostics_color = { warn = { fg = C.rosewater } } },
 		},
-		lualine_x = { "lsp_status", "progress" },
+		lualine_x = { "lsp_status", "progress", { "filetype", icon_only = true, icon = { align = "right" } } },
 		lualine_y = { "location" },
-		lualine_z = { {"filetype", icon_only = true, icon = {align = 'right'} }, { "filename", separator = { left = "", right = "" }, left_padding = 2 } },
+		lualine_z = { { "filename", separator = { left = "", right = "" }, left_padding = 2 } },
 	},
 })
 
@@ -277,7 +273,6 @@ require("nvim-treesitter").setup({
 				vim.treesitter.start(buf, language)
 
 				-- optional: enable treesitter based folds
-				--
 
 				-- enables treesitter based indentation
 				vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"

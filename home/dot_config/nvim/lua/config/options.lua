@@ -14,6 +14,10 @@ vim.o.breakindent = true -- wrapped lines continue visually indented
 vim.o.undofile = true
 vim.o.swapfile = false
 
+-- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
+vim.o.ignorecase = true
+vim.o.smartcase = true
+
 vim.o.signcolumn = "yes"
 
 vim.o.splitright = true
@@ -37,7 +41,7 @@ vim.diagnostic.config({
 	update_in_insert = false,
 	severity_sort = true,
 	float = { border = "rounded", source = "if_many" },
-	underline = { severity = vim.diagnostic.severity.ERROR },
+	underline = { severity = vim.diagnostic.severity.WARN },
 	virtual_text = true, -- Text shows up at the end of the line
 	jump = { float = true },
 })
