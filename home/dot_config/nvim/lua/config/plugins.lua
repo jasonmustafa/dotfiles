@@ -124,14 +124,14 @@ local custom_theme = {
 		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
 	},
 	visual = {
-		a = { bg = C.mauve, fg = C.base, gui = "bold" },
-		b = { bg = C.surface0, fg = C.mauve },
+		a = { bg = C.flamingo, fg = C.base, gui = "bold" },
+		b = { bg = C.surface0, fg = C.flamingo },
 		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
 		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
 	},
 	replace = {
-		a = { bg = C.red, fg = C.base, gui = "bold" },
-		b = { bg = C.surface0, fg = C.red },
+		a = { bg = C.maroon, fg = C.base, gui = "bold" },
+		b = { bg = C.surface0, fg = C.maroon },
 		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
 		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
 	},
@@ -160,8 +160,8 @@ require("lualine").setup({
 		},
 		lualine_b = { "branch" },
 		lualine_c = {
-			{ "diff", diff_color = { added = { fg = C.green }, modified = { fg = C.rosewater } } },
-			{ "diagnostics", diagnostics_color = { warn = { fg = C.flamingo } } },
+			{ "diff", diff_color = { added = { fg = C.green }, modified = { fg = C.flamingo } } },
+			{ "diagnostics", diagnostics_color = { warn = { fg = C.peach } } },
 		},
 		lualine_x = { "lsp_status", "progress", { "filetype", icon_only = true, icon = { align = "right" } } },
 		lualine_y = { "location" },
@@ -360,8 +360,7 @@ require("render-markdown").setup({
 })
 
 require("cord").setup({
-	text = {
-		editing = "Editing file",
-		workspace = "",
-	},
+	variables = { filename = "a file", workspace = "workspace" },
+	text = { editing = "Editing a ${filetype} file", workspace = "" },
+	display = { theme = "catppuccin" },
 })
