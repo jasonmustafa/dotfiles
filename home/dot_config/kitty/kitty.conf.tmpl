@@ -1,6 +1,8 @@
 # Match the macOS title bar to the rest of the terminal
 macos_titlebar_color background
 
+enable_audio_bell no
+
 # Disable confirmation on window close
 confirm_os_window_close 0
 
@@ -8,7 +10,7 @@ confirm_os_window_close 0
 background_opacity 0.9
 background_blur 64
 {{- else -}}
-background_opacity 0.5
+background_opacity 0.8
 {{- end }}
 
 window_padding_width 8
@@ -34,6 +36,9 @@ font_size 18.0
 {{- else -}}
 font_size 15.0
 {{- end }}
+
+# TODO: why tf did i add this
+clipboard_control write-clipboard write-primary no-append
 
 # BEGIN_KITTY_THEME
 # Catppuccin-Mocha
