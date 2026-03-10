@@ -1,6 +1,3 @@
-# Zsh Config File
-# Jason Mustafa (https://www.jasonmustafa.com/)
-
 ### DECORATION ###
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -26,7 +23,7 @@ fi
 
 ### OPTIONS ###
 
-bindkey -e
+bindkey -v
 HYPHEN_INSENSITIVE="true"
 HISTSIZE=10000
 HISTFILE="${HOME}/.histfile"
@@ -87,14 +84,16 @@ alias ch='cht.sh'
 alias cz='chezmoi'
 alias j='just'
 
-alias n='nvim'
-
 alias l='eza --group-directories-first --icons=auto'
 alias ll='l -lh --git'
 alias la='l -a'
 alias lla='ll -la'
 
+alias n='nvim'
+
 alias rm='trash'
+
+alias peaclock="peaclock --config-dir ~/.config/peaclock"
 
 ### COMPLETIONS ###
 
