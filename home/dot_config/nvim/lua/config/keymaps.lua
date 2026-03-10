@@ -39,6 +39,25 @@ local function language_format()
 	end
 end
 
+local function copy_path(modifier)
+	local path = vim.fn.expand("%" .. modifier)
+	vim.fn.setreg("+", path)
+	vim.notify(("Copied: %s"):format(path), vim.log.levels.INFO)
+end
+
+local function yank_lines_with_path()
+	local l1 = vim.fn.line("v")
+	local l2 = vim.fn.line(".")
+	local start = math.min(l1, l2)
+	local finish = math.max(l1, l2)
+	local lines = vim.api.nvim_buf_get_lines(0, start - 1, finish, false)
+	local relpath = vim.fn.expand("%:.")
+	local header = ("%s:%d-%d"):format(relpath, start, finish)
+	local text = header .. "\n" .. table.concat(lines, "\n") .. "\n"
+	vim.fn.setreg("+", text)
+	vim.notify(("Copied %d lines with path"):format(#lines), vim.log.levels.INFO)
+end
+
 local function chezmoi_nvim_dir()
 	local source = vim.trim(vim.fn.system("chezmoi source-path"))
 	local path = source .. "/home/dot_config/nvim"
@@ -63,6 +82,12 @@ map({ "n", "v", "x" }, "<leader>O", "<cmd>restart<CR>", { desc = "Restart vim" }
 -- Clipboard and editing.
 map({ "n", "v", "x" }, "<leader>y", '"+y<CR>')
 map({ "n", "v", "x" }, "<leader>d", '"+d<CR>')
+
+-- Copy files/lines
+map({ "n", "v", "x" }, "<leader>cp", function() copy_path(":.") end, { desc = "Copy relative file path" })
+map({ "n", "v", "x" }, "<leader>cP", function() copy_path(":p") end, { desc = "Copy absolute file path" })
+map("v", "<leader>cy", yank_lines_with_path, { desc = "Yank lines with file path" })
+
 map({ "n", "v", "x" }, "<C-s>", [[:s/\V]], { desc = "Enter substitute mode in selection" })
 
 -- Clear highlights on search when pressing <ESC> in normal mode
@@ -106,16 +131,16 @@ map("n", "n", "nzzzv")
 map("n", "N", "Nzzzv")
 
 -- Use CTRL+<hjkl> to switch between windows
-vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
-vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+map("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
+map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 -- Plugin maintenance
 map("n", "<leader>pc", pack_clean, { desc = "Remove unused plugins" })
 
 -- TEMP: Disable arrow keys in normal mode
-vim.keymap.set("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
-vim.keymap.set("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
-vim.keymap.set("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
-vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
+map("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
+map("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
+map("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
+map("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
