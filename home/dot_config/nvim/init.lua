@@ -15,3 +15,5 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 vim.cmd.colorscheme("catppuccin-mocha")
+
+pcall(require, "config.local")

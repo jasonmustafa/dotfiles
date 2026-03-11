@@ -35,6 +35,7 @@ ghostty
 gimp
 git
 git-delta
+github-cli
 glow
 gnome-keyring
 gnome-themes-extra

@@ -3,3 +3,4 @@ archpkglist.txt
 archforeignpkglist.txt
 .config/nvim/AGENTS.md
 .config/tmux/AGENTS.md
+.config/nvim/lua/config/local.lua

@@ -36,65 +36,39 @@ for name, server in pairs(servers) do
 end
 
 vim.api.nvim_create_autocmd("LspAttach", {
-	group = vim.api.nvim_create_augroup("snacks-lsp-attach", { clear = true }),
-	callback = function(event)
-		-- Find references for the word under your cursor
-		vim.keymap.set("n", "grr", function() Snacks.picker.lsp_references() end, { desc = "[G]oto [R]eferences" })
-
-		-- Jump to the implementation of the word under your cursor
-		-- Useful when your language has ways of declaring types without an actual implementation
-		vim.keymap.set(
-			"n",
-			"gri",
-			function() Snacks.picker.lsp_implementations() end,
-			{ desc = "[G]oto [I]mplementation" }
-		)
-
-		-- Fuzzy find all the symbols in your current workspace
-		-- Symbols are things like variables, functions, types, etc.
-		vim.keymap.set("n", "gO", function() Snacks.picker.lsp_symbols() end, { desc = "Open LSP document symbols" })
-
-		-- Fuzzy find all the symbols in your current workspace
-		-- Similar to document symbols, except searches over your entire project
-		vim.keymap.set(
-			"n",
-			"gW",
-			function() Snacks.picker.lsp_workspace_symbols() end,
-			{ desc = "Open LSP Workspace Symbols" }
-		)
-
-		-- Jump to the type of word under your cursor
-		-- Useful when you're not sure what type a variable is and you want to see
-		-- the definition of its *type*, not where it was *defined*
-		vim.keymap.set(
-			"n",
-			"grt",
-			function() Snacks.picker.lsp_type_definitions() end,
-			{ desc = "[G]oto [T]ype Definitions" }
-		)
-	end,
-})
-
-vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 	callback = function(event)
+		local client = vim.lsp.get_client_by_id(event.data.client_id)
 		local map = function(keys, func, desc, mode)
 			mode = mode or "n"
 			vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 		end
 
+		-- Find references for the word under your cursor
+		map("grr", function() Snacks.picker.lsp_references() end, "[G]oto [R]eferences")
+
+		-- Jump to the implementation of the word under your cursor
+		map("gri", function() Snacks.picker.lsp_implementations() end, "[G]oto [I]mplementation")
+
+		-- Fuzzy find all the symbols in your current document
+		map("gO", function() Snacks.picker.lsp_symbols() end, "Open LSP document symbols")
+
+		-- Fuzzy find all the symbols in your current workspace
+		map("gW", function() Snacks.picker.lsp_workspace_symbols() end, "Open LSP Workspace Symbols")
+
+		-- Jump to the type of word under your cursor
+		map("grt", function() Snacks.picker.lsp_type_definitions() end, "[G]oto [T]ype Definitions")
+
 		-- Rename the variable under your cursor
 		map("grn", vim.lsp.buf.rename, "[R]e[n]ame")
 
-		-- Execute a code action, usually your cursor needs to be on top of an error
-		-- or a suggestion from your LSP for this to activate
+		-- Execute a code action
 		map("gra", vim.lsp.buf.code_action, "[G]oto Code [A]ction", { "n", "x" })
 
 		-- WARN: This is not Goto Definition, this is Goto Declaration
-		-- For example, in C this takes you to the header
 		map("grD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
-		-- Toggle inlay hints in your code, if the language server you are using supports them
+		-- Toggle inlay hints if the language server supports them
 		if client and client:supports_method("textDocument/inlayHint", event.buf) then
 			map(
 				"<leader>th",

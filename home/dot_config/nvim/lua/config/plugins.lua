@@ -1,27 +1,13 @@
 vim.pack.add({
-	-- Dependencies
-	{ src = "https://github.com/MunifTanjim/nui.nvim" }, -- for neo-tree
-	{ src = "https://github.com/nvim-lua/plenary.nvim" }, -- for neo-tree
-
 	-- Theme & UI
 	{ src = "https://github.com/catppuccin/nvim" },
-	{ src = "https://github.com/nvim-mini/mini.icons" }, -- for mini.statusline
-	{ src = "https://github.com/nvim-mini/mini.notify" },
-	{ src = "https://github.com/nvim-mini/mini.statusline" },
+	{ src = "https://github.com/echasnovski/mini.nvim" },
 	{ src = "https://github.com/nvim-lualine/lualine.nvim" },
-	{ src = "https://github.com/nvim-mini/mini.cursorword" },
 	{ src = "https://github.com/folke/todo-comments.nvim" },
-	{ src = "https://github.com/nvim-mini/mini.indentscope" },
 
 	-- Editing & navigation
-	{ src = "https://github.com/stevearc/oil.nvim" },
-	{ src = "https://github.com/nvim-mini/mini.files" },
-	{ src = "https://github.com/nvim-neo-tree/neo-tree.nvim" },
 	{ src = "https://github.com/akinsho/toggleterm.nvim" },
-	{ src = "https://github.com/nvim-mini/mini.pairs" },
-	{ src = "https://github.com/nvim-mini/mini.surround" },
 	{ src = "https://github.com/NMAC427/guess-indent.nvim" },
-	{ src = "https://github.com/nvim-mini/mini.ai" },
 	{ src = "https://github.com/mfussenegger/nvim-lint" },
 
 	-- LSP & completion
@@ -34,9 +20,7 @@ vim.pack.add({
 	-- Tooling & misc
 	{ src = "https://github.com/folke/snacks.nvim" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
-	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
-	{ src = "https://github.com/nvim-mini/mini.clue" },
 	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 	{ src = "https://github.com/vyfor/cord.nvim" },
 	-- TODO: setup
@@ -57,117 +41,7 @@ require("mini.icons").setup()
 MiniIcons.mock_nvim_web_devicons()
 require("mini.notify").setup()
 
-local mode_map = {
-	["NORMAL"] = " N",
-	["O-PENDING"] = "󰇘 N?",
-	["INSERT"] = " I",
-	["VISUAL"] = " V",
-	["V-BLOCK"] = " VB",
-	["V-LINE"] = " VL",
-	["V-REPLACE"] = " VR",
-	["REPLACE"] = "󰬸 R",
-	["COMMAND"] = " !",
-	["SHELL"] = " SH",
-	["TERMINAL"] = " T",
-	["EX"] = "󰆍 X",
-	["S-BLOCK"] = "󰓡 SB",
-	["S-LINE"] = "󰓡 SL",
-	["SELECT"] = "󰓡 S",
-	["CONFIRM"] = " Y",
-	["MORE"] = "󰇙 M",
-}
-
-local catppuccin_mocha = {
-	rosewater = "#f5e0dc",
-	blue = "#89b4fa",
-	lavender = "#b4befe",
-	green = "#a6e3a1",
-	teal = "#94e2d5",
-	mauve = "#cba6f7",
-	peach = "#fab387",
-	red = "#f38ba8",
-	maroon = "#eba0ac",
-	flamingo = "#f2cdcd",
-	text = "#cdd6f4",
-	base = "#1e1e2e",
-	mantle = "#181825",
-	surface0 = "#313244",
-	surface1 = "#45475a",
-	overlay0 = "#6c7086",
-}
-
-local C = catppuccin_mocha
-local custom_theme = {
-	normal = {
-		a = { bg = C.lavender, fg = C.mantle, gui = "bold" },
-		b = { bg = C.surface0, fg = C.lavender },
-		c = { bg = "NONE", fg = C.text },
-		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
-		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
-	},
-	insert = {
-		a = { bg = C.teal, fg = C.base, gui = "bold" },
-		b = { bg = C.surface0, fg = C.teal },
-		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
-		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
-	},
-	terminal = {
-		a = { bg = C.green, fg = C.base, gui = "bold" },
-		b = { bg = C.surface0, fg = C.green },
-		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
-		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
-	},
-	command = {
-		a = { bg = C.peach, fg = C.base, gui = "bold" },
-		b = { bg = C.surface0, fg = C.peach },
-		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
-		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
-	},
-	visual = {
-		a = { bg = C.flamingo, fg = C.base, gui = "bold" },
-		b = { bg = C.surface0, fg = C.flamingo },
-		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
-		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
-	},
-	replace = {
-		a = { bg = C.maroon, fg = C.base, gui = "bold" },
-		b = { bg = C.surface0, fg = C.maroon },
-		y = { bg = C.maroon, fg = C.mantle, gui = "bold" },
-		z = { bg = C.flamingo, fg = C.mantle, gui = "bold" },
-	},
-	inactive = {
-		a = { bg = "NONE", fg = C.lavender },
-		b = { bg = "NONE", fg = C.surface1, gui = "bold" },
-		c = { bg = "NONE", fg = C.overlay0 },
-	},
-}
-
-require("lualine").setup({
-	options = {
-		theme = custom_theme,
-		globalstatus = true,
-		component_separators = "",
-		section_separators = { left = "", right = "" },
-	},
-	sections = {
-		lualine_a = {
-			{
-				"mode",
-				fmt = function(s) return mode_map[s] or s end,
-				separator = { left = "", right = "" },
-				right_padding = 2,
-			},
-		},
-		lualine_b = { "branch" },
-		lualine_c = {
-			{ "diff", diff_color = { added = { fg = C.green }, modified = { fg = C.flamingo } } },
-			{ "diagnostics", diagnostics_color = { warn = { fg = C.peach } } },
-		},
-		lualine_x = { "lsp_status", "progress", { "filetype", icon_only = true, icon = { align = "right" } } },
-		lualine_y = { "location" },
-		lualine_z = { { "filename", separator = { left = "", right = "" }, left_padding = 2 } },
-	},
-})
+require("config.lualine")
 
 require("mini.cursorword").setup()
 require("todo-comments").setup({ signs = false })
@@ -183,23 +57,9 @@ require("mini.pairs").setup()
 -- - sr)'  - [S]urround [R]eplace [)] [']
 require("mini.surround").setup()
 
--- require("oil").setup({
--- 	lsp_file_methods = { autosave_changes = true },
--- 	columns = { "permissions", "icon" },
--- 	view_options = { show_hidden = true },
--- 	delete_to_trash = true,
--- 	float = { max_width = 0.9, max_height = 0.9, border = "rounded" },
--- })
-
 require("mini.files").setup({
 	options = { permanent_delete = false, use_as_default_explorer = false },
 	windows = { preview = true },
-})
-
-require("neo-tree").setup({
-	filesystem = { window = { mappings = { ["\\"] = "close_window" } } },
-	window = { position = "float" },
-	popup_border_style = "",
 })
 
 require("toggleterm").setup({
@@ -235,7 +95,12 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 
 local Snacks = require("snacks")
 Snacks.setup({
-	picker = {},
+	picker = {
+		sources = {
+			explorer = { layout = { preset = "default" } },
+		},
+	},
+	explorer = {},
 })
 
 -- LSP & completion
@@ -296,15 +161,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
-require("gitsigns").setup({
-	signs = {
-		add = { text = "+" },
-		change = { text = "~" },
-		delete = { text = "_" },
-		topdelete = { text = "‾" },
-		changedelete = { text = "~" },
-	},
-})
+require("mini.diff").setup({ view = { style = "sign", signs = { add = "+", change = "~", delete = "_" } } })
 
 require("conform").setup({
 	formatters_by_ft = {
