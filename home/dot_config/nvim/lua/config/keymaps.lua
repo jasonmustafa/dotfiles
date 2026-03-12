@@ -136,6 +136,9 @@ map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
+-- Git
+map("n", "<leader>go", MiniDiff.toggle_overlay, { desc = "Toggle diff overlay" })
+
 -- Plugin maintenance
 map("n", "<leader>pc", pack_clean, { desc = "Remove unused plugins" })
 

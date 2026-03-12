@@ -208,6 +208,7 @@ miniclue.setup({
 		miniclue.gen_clues.registers(),
 		miniclue.gen_clues.windows(),
 		miniclue.gen_clues.z(),
+		{ mode = { "n", "x" }, keys = "<Leader>g", desc = "+git" },
 		{ mode = { "n", "x" }, keys = "<Leader>p", desc = "+vim.pack" },
 	},
 	window = { delay = 0 },
