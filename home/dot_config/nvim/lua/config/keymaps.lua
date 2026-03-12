@@ -105,6 +105,7 @@ map("n", "<leader>/", function() Snacks.picker.lines() end, { desc = "[/] Fuzzil
 map("n", "<leader>s/", function() Snacks.picker.grep_buffers() end, { desc = "[S]earch (grep) [/] in Open Files" })
 map("n", "<leader>sk", function() Snacks.picker.keymaps() end, { desc = "[S]earch [K]eymaps" })
 map("n", "<leader>sh", function() Snacks.picker.help() end, { desc = "[Search] [Help]" })
+map("n", "<leader>sz", function() require("chezmoi.pick").snacks() end, { desc = "[S]earch che[z]moi files" })
 
 map(
 	"n",

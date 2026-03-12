@@ -37,6 +37,11 @@ vim.o.confirm = true -- Dialog when performing operation that would fail due to 
 vim.o.termguicolors = true
 vim.o.winborder = "rounded"
 
+-- chezmoi.vim: use tmp buffer for filetype detection
+vim.g["chezmoi#use_tmp_buffer"] = true
+-- .chezmoiroot sets source dir to home/, not the repo root
+vim.g["chezmoi#source_dir_path"] = vim.fn.expand("~/.local/share/chezmoi/home")
+
 vim.diagnostic.config({
 	update_in_insert = false,
 	severity_sort = true,

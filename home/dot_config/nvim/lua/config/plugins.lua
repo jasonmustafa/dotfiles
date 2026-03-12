@@ -22,9 +22,10 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
 	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
+	{ src = "https://github.com/nvim-lua/plenary.nvim" },
+	{ src = "https://github.com/xvzc/chezmoi.nvim" },
+	{ src = "https://github.com/alker0/chezmoi.vim" },
 	{ src = "https://github.com/vyfor/cord.nvim" },
-	-- TODO: setup
-	-- { src = "https://github.com/xvzc/chezmoi.nvim" },
 })
 
 -- Theme & UI
@@ -143,6 +144,11 @@ vim.api.nvim_create_autocmd("FileType", {
 	callback = function(args)
 		local buf, filetype = args.buf, args.match
 
+		-- chezmoi.vim handles template syntax; treesitter can't parse them
+		if filetype:find("chezmoitmpl") then
+			return
+		end
+
 		local language = vim.treesitter.language.get_lang(filetype)
 		if not language then
 			return
@@ -215,6 +221,8 @@ require("render-markdown").setup({
 	-- Renders tables with rounded corners
 	pipe_table = { preset = "round" },
 })
+
+require("chezmoi").setup({})
 
 require("cord").setup({
 	variables = { filename = "a file", workspace = "workspace" },

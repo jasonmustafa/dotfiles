@@ -1,10 +1,10 @@
 local servers = {
-	ty = {},
 	lua_ls = {
 		-- For Neovim config files
 		on_init = function(client)
 			if client.workspace_folders then
 				local path = client.workspace_folders[1].name
+
 				if
 					path ~= vim.fn.stdpath("config")
 					and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
@@ -14,21 +14,26 @@ local servers = {
 			end
 
 			client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-				runtime = {
-					version = "LuaJIT",
-					path = { "lua/?.lua", "lua/?/init.lua" },
-				},
+				runtime = { version = "LuaJIT", path = { "lua/?.lua", "lua/?/init.lua" } },
 				workspace = {
 					checkThirdParty = false,
-					library = { vim.env.VIMRUNTIME },
+					library = vim.tbl_extend(
+						"force",
+						vim.api.nvim_get_runtime_file("", true),
+						{ "${3rd}/luv/library" }
+					),
 				},
 			})
 		end,
-		settings = {
-			Lua = {},
-		},
+		settings = { Lua = {} },
 	},
 }
+
+if vim.env.WORK then
+	servers.pyright = {}
+else
+	servers.ty = {}
+end
 
 for name, server in pairs(servers) do
 	vim.lsp.config(name, server)
@@ -65,7 +70,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		-- Execute a code action
 		map("gra", vim.lsp.buf.code_action, "[G]oto Code [A]ction", { "n", "x" })
 
-		-- WARN: This is not Goto Definition, this is Goto Declaration
+		-- Go to Declaration
 		map("grD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
 		-- Toggle inlay hints if the language server supports them
