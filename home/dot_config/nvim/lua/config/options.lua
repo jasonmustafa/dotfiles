@@ -36,6 +36,7 @@ vim.o.confirm = true -- Dialog when performing operation that would fail due to 
 
 vim.o.termguicolors = true
 vim.o.winborder = "rounded"
+vim.o.pumborder = "rounded"
 
 -- chezmoi.vim: use tmp buffer for filetype detection
 vim.g["chezmoi#use_tmp_buffer"] = true

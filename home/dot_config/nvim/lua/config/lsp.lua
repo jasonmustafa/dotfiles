@@ -1,4 +1,5 @@
 local servers = {
+	vtsls = {},
 	lua_ls = {
 		-- For Neovim config files
 		on_init = function(client)

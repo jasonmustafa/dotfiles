@@ -13,7 +13,7 @@ vim.pack.add({
 	-- LSP & completion
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
-	{ src = "https://github.com/rafamadriz/friendly-snippets" }, -- for blink snippets
+	{ src = "https://github.com/rafamadriz/friendly-snippets" },
 	{ src = "https://github.com/saghen/blink.cmp" },
 	{ src = "https://github.com/aznhe21/actions-preview.nvim" },
 
