@@ -25,7 +25,6 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
 	{ src = "https://github.com/xvzc/chezmoi.nvim" },
 	{ src = "https://github.com/alker0/chezmoi.vim" },
-	{ src = "https://github.com/vyfor/cord.nvim" },
 })
 
 -- Theme & UI
@@ -224,9 +223,3 @@ require("render-markdown").setup({
 })
 
 require("chezmoi").setup({})
-
-require("cord").setup({
-	variables = { filename = "a file", workspace = "workspace" },
-	text = { editing = "Editing a ${filetype} file", workspace = "" },
-	display = { theme = "catppuccin" },
-})

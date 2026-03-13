@@ -30,12 +30,6 @@ local servers = {
 	},
 }
 
-if vim.env.WORK then
-	servers.pyright = {}
-else
-	servers.ty = {}
-end
-
 for name, server in pairs(servers) do
 	vim.lsp.config(name, server)
 	vim.lsp.enable(name)
