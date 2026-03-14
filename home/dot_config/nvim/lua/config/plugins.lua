@@ -9,6 +9,7 @@ vim.pack.add({
 	{ src = "https://github.com/akinsho/toggleterm.nvim" },
 	{ src = "https://github.com/NMAC427/guess-indent.nvim" },
 	{ src = "https://github.com/mfussenegger/nvim-lint" },
+	{ src = "https://github.com/windwp/nvim-autopairs" },
 
 	-- LSP & completion
 	{ src = "https://github.com/mason-org/mason.nvim" },
@@ -32,11 +33,7 @@ vim.pack.add({
 require("catppuccin").setup({
 	transparent_background = true,
 	float = { transparent = true },
-	integrations = {
-		snacks = {
-			enabled = true,
-		},
-	},
+	integrations = { snacks = { enabled = true } },
 })
 require("mini.icons").setup()
 MiniIcons.mock_nvim_web_devicons()
@@ -49,7 +46,7 @@ require("todo-comments").setup({ signs = false })
 require("mini.indentscope").setup()
 
 -- Editing & navigation
-require("mini.pairs").setup()
+require("nvim-autopairs").setup() -- supports triple backtick closing in markdown files
 
 -- Add/delete/replace surroundings (brackets, quotes, etc.)
 -- Examples:
@@ -58,18 +55,11 @@ require("mini.pairs").setup()
 -- - sr)'  - [S]urround [R]eplace [)] [']
 require("mini.surround").setup()
 
-require("mini.files").setup({
-	options = { permanent_delete = false, use_as_default_explorer = false },
-	windows = { preview = true },
-})
+require("mini.files").setup({ options = { permanent_delete = false, use_as_default_explorer = true } })
 
-require("toggleterm").setup({
-	open_mapping = [[<c-\>]],
-	direction = "float",
-	float_opts = { border = "rounded" },
-})
+require("toggleterm").setup({ open_mapping = [[<c-\>]], direction = "float", float_opts = { border = "rounded" } })
 
-require("guess-indent").setup({})
+require("guess-indent").setup()
 
 -- Better Around/Inside textobjects
 -- Examples:
@@ -95,14 +85,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 })
 
 local Snacks = require("snacks")
-Snacks.setup({
-	picker = {
-		sources = {
-			explorer = { layout = { preset = "default" } },
-		},
-	},
-	explorer = {},
-})
+Snacks.setup({ picker = { sources = { explorer = { layout = { preset = "default" } } } }, explorer = {} })
 
 -- LSP & completion
 require("mason").setup()
@@ -168,7 +151,13 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 require("gitsigns").setup({
-	signs = { add = { text = "+" }, change = { text = "~" }, delete = { text = "_" }, topdelete = { text = "‾" }, changedelete = { text = "~" } },
+	signs = {
+		add = { text = "+" },
+		change = { text = "~" },
+		delete = { text = "_" },
+		topdelete = { text = "‾" },
+		changedelete = { text = "~" },
+	},
 	on_attach = function(bufnr)
 		local gs = require("gitsigns")
 		local function m(mode, l, r, opts)
@@ -181,8 +170,18 @@ require("gitsigns").setup({
 		m("n", "[c", function() gs.nav_hunk("prev") end, { desc = "Prev hunk" })
 		m("n", "<leader>hs", gs.stage_hunk, { desc = "Stage hunk" })
 		m("n", "<leader>hr", gs.reset_hunk, { desc = "Reset hunk" })
-		m("v", "<leader>hs", function() gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, { desc = "Stage hunk" })
-		m("v", "<leader>hr", function() gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, { desc = "Reset hunk" })
+		m(
+			"v",
+			"<leader>hs",
+			function() gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end,
+			{ desc = "Stage hunk" }
+		)
+		m(
+			"v",
+			"<leader>hr",
+			function() gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end,
+			{ desc = "Reset hunk" }
+		)
 		m("n", "<leader>hS", gs.stage_buffer, { desc = "Stage buffer" })
 		m("n", "<leader>hu", gs.undo_stage_hunk, { desc = "Undo stage hunk" })
 		m("n", "<leader>hR", gs.reset_buffer, { desc = "Reset buffer" })
