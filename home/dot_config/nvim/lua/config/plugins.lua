@@ -18,6 +18,7 @@ vim.pack.add({
 	{ src = "https://github.com/aznhe21/actions-preview.nvim" },
 
 	-- Tooling & misc
+	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	{ src = "https://github.com/folke/snacks.nvim" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
@@ -166,7 +167,33 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
-require("mini.diff").setup({ view = { style = "sign", signs = { add = "+", change = "~", delete = "_" } } })
+require("gitsigns").setup({
+	signs = { add = { text = "+" }, change = { text = "~" }, delete = { text = "_" }, topdelete = { text = "‾" }, changedelete = { text = "~" } },
+	on_attach = function(bufnr)
+		local gs = require("gitsigns")
+		local function m(mode, l, r, opts)
+			opts = opts or {}
+			opts.buffer = bufnr
+			vim.keymap.set(mode, l, r, opts)
+		end
+
+		m("n", "]c", function() gs.nav_hunk("next") end, { desc = "Next hunk" })
+		m("n", "[c", function() gs.nav_hunk("prev") end, { desc = "Prev hunk" })
+		m("n", "<leader>hs", gs.stage_hunk, { desc = "Stage hunk" })
+		m("n", "<leader>hr", gs.reset_hunk, { desc = "Reset hunk" })
+		m("v", "<leader>hs", function() gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, { desc = "Stage hunk" })
+		m("v", "<leader>hr", function() gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, { desc = "Reset hunk" })
+		m("n", "<leader>hS", gs.stage_buffer, { desc = "Stage buffer" })
+		m("n", "<leader>hu", gs.undo_stage_hunk, { desc = "Undo stage hunk" })
+		m("n", "<leader>hR", gs.reset_buffer, { desc = "Reset buffer" })
+		m("n", "<leader>hp", gs.preview_hunk, { desc = "Preview hunk" })
+		m("n", "<leader>hb", function() gs.blame_line({ full = true }) end, { desc = "Blame line" })
+		m("n", "<leader>hd", gs.diffthis, { desc = "Diff against index" })
+		m("n", "<leader>hD", function() gs.diffthis("@") end, { desc = "Diff against last commit" })
+		m("n", "<leader>tb", gs.toggle_current_line_blame, { desc = "Toggle line blame" })
+		m("n", "<leader>tD", gs.toggle_deleted, { desc = "Toggle deleted" })
+	end,
+})
 
 require("conform").setup({
 	formatters_by_ft = {
@@ -208,7 +235,9 @@ miniclue.setup({
 		miniclue.gen_clues.windows(),
 		miniclue.gen_clues.z(),
 		{ mode = { "n", "x" }, keys = "<Leader>g", desc = "+git" },
+		{ mode = { "n", "x" }, keys = "<Leader>h", desc = "+hunk" },
 		{ mode = { "n", "x" }, keys = "<Leader>p", desc = "+vim.pack" },
+		{ mode = { "n", "x" }, keys = "<Leader>t", desc = "+toggle" },
 	},
 	window = { delay = 0 },
 })
