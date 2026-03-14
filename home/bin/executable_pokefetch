@@ -16,4 +16,3 @@ if (( RANDOM % n_shiny == 0 )); then
 fi
 
 pokeget random $shiny_option --hide-name | fastfetch --file-raw -
-
