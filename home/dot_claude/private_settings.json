@@ -7,9 +7,10 @@
     "allow": []
   },
   "model": "opus",
-  "enabledPlugins": {},
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.sh"
-  }
+  },
+  "enabledPlugins": {},
+  "effortLevel": "high"
 }
