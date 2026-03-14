@@ -2,6 +2,7 @@ abbr -a -- ch cht.sh
 abbr -a -- j just
 
 abbr -a -- n nvim
+abbr -a -- zj zellij
 
 abbr -a -- l eza --group-directories-first --icons=auto
 abbr -a -- la eza -a --git --group-directories-first --icons=auto
