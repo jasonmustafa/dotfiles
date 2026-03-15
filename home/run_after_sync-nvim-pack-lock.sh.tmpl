@@ -1,0 +1,10 @@
+#!/bin/bash
+SOURCE="{{ .chezmoi.sourceDir }}/dot_config/nvim/nvim-pack-lock.json"
+TARGET="{{ .chezmoi.homeDir }}/.config/nvim/nvim-pack-lock.json"
+
+if [ ! -f "$TARGET" ] && [ -f "$SOURCE" ]; then
+    mkdir -p "$(dirname "$TARGET")"
+    cp "$SOURCE" "$TARGET"
+elif [ -f "$TARGET" ]; then
+    cp "$TARGET" "$SOURCE"
+fi
