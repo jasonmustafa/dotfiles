@@ -1,6 +1,6 @@
 vim.pack.add({
 	-- Theme & UI
-	{ src = "https://github.com/catppuccin/nvim" },
+	{ src = "https://github.com/rose-pine/neovim" },
 	{ src = "https://github.com/echasnovski/mini.nvim" },
 	{ src = "https://github.com/nvim-lualine/lualine.nvim" },
 	{ src = "https://github.com/folke/todo-comments.nvim" },
@@ -29,12 +29,8 @@ vim.pack.add({
 	{ src = "https://github.com/alker0/chezmoi.vim" },
 })
 
--- Theme & UI
-require("catppuccin").setup({
-	transparent_background = true,
-	float = { transparent = true },
-	integrations = { snacks = { enabled = true } },
-})
+require("rose-pine").setup({ styles = { transparency = true } })
+
 require("mini.icons").setup()
 MiniIcons.mock_nvim_web_devicons()
 require("mini.notify").setup()
@@ -85,7 +81,10 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 })
 
 local Snacks = require("snacks")
-Snacks.setup({ picker = { sources = { explorer = { layout = { preset = "default" } } } }, explorer = {} })
+Snacks.setup({
+	picker = { sources = { explorer = { layout = { preset = "default" } } } },
+	explorer = {},
+})
 
 -- LSP & completion
 require("mason").setup()

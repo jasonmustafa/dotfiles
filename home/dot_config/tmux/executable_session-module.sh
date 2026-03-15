@@ -8,12 +8,13 @@
 #   $3 - pane_in_mode   (1 or 0/empty)
 #   $4 - session name
 
-# Catppuccin Mocha
-RED='#f38ba8'
-TEAL='#94e2d5'
-MAUVE='#cba6f7'
-BLUE='#89b4fa'
-CRUST='#11111b'     # fg on accent backgrounds
+# Rosé Pine
+LOVE='#eb6f92'
+FOAM='#9ccfd8'
+IRIS='#c4a7e7'
+ROSE='#ebbcba'
+PINE='#31748f'
+BASE='#191724'      # fg on accent backgrounds
 
 # Nerd Font icons (trailing space for padding)
 I_TMUX=$'\uebc8 '    # ebc8  tmux
@@ -28,17 +29,17 @@ R=$'\ue0b4'  # right half circle
 
 # Mode detection (priority: prefix > tree > clock > copy > normal)
 if [[ $1 == 1 ]]; then
-    COLOR=$RED ICON=$I_PREFIX
+    COLOR=$LOVE ICON=$I_PREFIX
 elif [[ $2 == tree-mode ]]; then
-    COLOR=$TEAL ICON=$I_TREE
+    COLOR=$FOAM ICON=$I_TREE
 elif [[ $2 == clock-mode ]]; then
-    COLOR=$MAUVE ICON=$I_CLOCK
+    COLOR=$IRIS ICON=$I_CLOCK
 elif [[ $3 != 0 && -n $3 ]]; then
-    COLOR=$BLUE ICON=$I_COPY
+    COLOR=$ROSE ICON=$I_COPY
 else
-    COLOR=$TEAL ICON=$I_TMUX
+    COLOR=$FOAM ICON=$I_TMUX
 fi
 
 # Build pill: ◖ icon session ◗
 printf '#[fg=%s]%s#[fg=%s,bg=%s,bold] %s %s #[nobold,fg=%s,bg=default]%s' \
-    "$COLOR" "$L" "$CRUST" "$COLOR" "$ICON" "$4" "$COLOR" "$R"
+    "$COLOR" "$L" "$BASE" "$COLOR" "$ICON" "$4" "$COLOR" "$R"

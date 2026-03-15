@@ -29,13 +29,13 @@
   # Zsh >= 5.1 is required.
   [[ $ZSH_VERSION == (5.<1->*|<6->.*) ]] || return
 
-  typeset -g P10K_COLOR_ROSEWATER="#f5e0dc"
-  typeset -g P10K_COLOR_MAUVE="#cba6f7"
-  typeset -g P10K_COLOR_LAVENDER="#b4befe"
-  typeset -g P10K_COLOR_TEAL="#94e2d5"
-  typeset -g P10K_COLOR_PEACH="#fab387"
-  typeset -g P10K_COLOR_RED="#f38ba8"
-  typeset -g P10K_COLOR_GREEN="#a6e3a1"
+  typeset -g P10K_COLOR_ROSE="#ebbcba"
+  typeset -g P10K_COLOR_IRIS="#c4a7e7"
+  typeset -g P10K_COLOR_FOAM="#9ccfd8"
+  typeset -g P10K_COLOR_PINE="#31748f"
+  typeset -g P10K_COLOR_GOLD="#f6c177"
+  typeset -g P10K_COLOR_LOVE="#eb6f92"
+  typeset -g P10K_COLOR_TEXT="#e0def4"
 
   # The list of segments shown on the left. Fill it with the most important segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
@@ -203,10 +203,14 @@
 
   ################################[ prompt_char: prompt symbol ]################################
   # Prompt symbol color per vi mode
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_FOREGROUND=$P10K_COLOR_TEAL
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VICMD_FOREGROUND=$P10K_COLOR_LAVENDER
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIVIS_FOREGROUND=$P10K_COLOR_MAUVE
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIOWR_FOREGROUND=$P10K_COLOR_RED
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VIINS_FOREGROUND=$P10K_COLOR_FOAM
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VICMD_FOREGROUND=$P10K_COLOR_IRIS
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VIVIS_FOREGROUND=$P10K_COLOR_ROSE
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VIOWR_FOREGROUND=$P10K_COLOR_LOVE
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_VIINS_FOREGROUND=$P10K_COLOR_LOVE
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_VICMD_FOREGROUND=$P10K_COLOR_LOVE
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_VIVIS_FOREGROUND=$P10K_COLOR_LOVE
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_VIOWR_FOREGROUND=$P10K_COLOR_LOVE
   # Default prompt symbol.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION='❯'
   # Prompt symbol in command vi mode.
@@ -223,17 +227,17 @@
 
   ##################################[ dir: current directory ]##################################
   # Default current directory color.
-  typeset -g POWERLEVEL9K_DIR_FOREGROUND=$P10K_COLOR_LAVENDER
+  typeset -g POWERLEVEL9K_DIR_FOREGROUND=$P10K_COLOR_ROSE
   # If directory is too long, shorten some of its segments to the shortest possible unique
   # prefix. The shortened directory can be tab-completed to the original.
   typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_unique
   # Replace removed segment suffixes with this symbol.
   typeset -g POWERLEVEL9K_SHORTEN_DELIMITER=
   # Color of the shortened directory segments.
-  typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=$P10K_COLOR_LAVENDER
+  typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=$P10K_COLOR_ROSE
   # Color of the anchor directory segments. Anchor segments are never shortened. The first
   # segment is always an anchor.
-  typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=$P10K_COLOR_LAVENDER
+  typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=$P10K_COLOR_ROSE
   # Set to true to display anchor directory segments in bold.
   typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=false
   # Don't shorten directories that contain any of these files. They are anchors.
@@ -384,12 +388,12 @@
 
     if (( $1 )); then
       # Styling for up-to-date Git status.
-      local       meta="%F{$P10K_COLOR_MAUVE}"  # default (mauve) foreground
-      local      clean="%F{$P10K_COLOR_MAUVE}"  # mauve foreground
-      local     staged="%6F"
-      local   modified="%17F"                   # rosewater foreground
-      local  untracked='%4F'                    # blue foreground
-      local conflicted='%1F'                    # red foreground
+      local       meta="%F{$P10K_COLOR_IRIS}"  # default (iris) foreground
+      local      clean="%F{$P10K_COLOR_IRIS}"  # iris foreground
+      local     staged="%5F"                    # iris (staged)
+      local   modified="%17F"                   # rose (modified)
+      local  untracked='%4F'                    # foam (additions)
+      local conflicted='%1F'                    # love (conflicts)
     else
       # Styling for incomplete and stale Git status.
       local       meta='%f'  # default foreground
@@ -517,9 +521,9 @@
 
   # These settings are used for repositories other than Git or when gitstatusd fails and
   # Powerlevel10k has to fall back to using vcs_info.
-  typeset -g POWERLEVEL9K_VCS_CLEAN_FOREGROUND=$P10K_COLOR_MAUVE
-  typeset -g POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=5 # Pink
-  typeset -g POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=17 # Rosewater
+  typeset -g POWERLEVEL9K_VCS_CLEAN_FOREGROUND=$P10K_COLOR_IRIS
+  typeset -g POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=4 # Foam
+  typeset -g POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=17 # Modified
 
   ##########################[ status: exit code of the last command ]###########################
   # Enable OK_PIPE, ERROR_PIPE and ERROR_SIGNAL status states to allow us to enable, disable and

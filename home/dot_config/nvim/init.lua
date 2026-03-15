@@ -8,13 +8,13 @@ require("config.keymaps")
 
 -- Autocommands
 
-vim.api.nvim_create_autocmd('TextYankPost', {
-	desc = 'Highlight when yanking (copying) text',
-	group = vim.api.nvim_create_augroup('highlight-yank', {clear = true}),
+vim.api.nvim_create_autocmd("TextYankPost", {
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
 	callback = function() vim.hl.on_yank() end,
 })
 
-vim.cmd.colorscheme("catppuccin-mocha")
+vim.cmd("colorscheme rose-pine")
 
 pcall(require, "config.personal")
 pcall(require, "config.work")
