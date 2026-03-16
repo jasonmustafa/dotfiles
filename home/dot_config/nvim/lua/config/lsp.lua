@@ -1,4 +1,6 @@
+-- See available LSPs from nvim-lspconfig: `:help lspconfig-all`
 local servers = {
+	bashls = {},
 	vtsls = {},
 	lua_ls = {
 		-- For Neovim config files

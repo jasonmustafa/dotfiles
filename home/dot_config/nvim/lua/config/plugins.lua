@@ -68,7 +68,9 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 	callback = function()
 		local lint = require("lint")
 		lint.linters_by_ft = {
+			bash = { "shellcheck" },
 			dockerfile = { "hadolint" },
+			sh = { "shellcheck" },
 			typescript = { "eslint" },
 			zsh = { "zsh" },
 		}
