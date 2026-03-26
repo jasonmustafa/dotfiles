@@ -1,5 +1,6 @@
 alacritty
 aquamarine
+awww
 base
 base-devel
 bash-language-server
@@ -115,7 +116,6 @@ sof-firmware
 solaar
 spotify-launcher
 steam
-swww
 system76-firmware
 tesseract
 tinymist
@@ -134,6 +134,9 @@ uv
 vim
 waybar
 wev
+wine-mono
+wine-staging
+winetricks
 wireplumber
 wl-clipboard
 wlsunset
