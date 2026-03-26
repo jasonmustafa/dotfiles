@@ -93,7 +93,8 @@ map({ "n", "v", "x" }, "<C-s>", [[:s/\V]], { desc = "Enter substitute mode in se
 -- Clear highlights on search when pressing <ESC> in normal mode
 map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
-map("n", "<leader>sf", function() Snacks.picker.smart() end, { desc = "Smart Find Files" })
+map("n", "<leader>sf", function() Snacks.picker.files() end, { desc = "[S]earch [F]iles" })
+map("n", "<leader>sF", function() Snacks.picker.files({ hidden = true, ignored = true }) end, { desc = "[S]earch All [F]iles (hidden+ignored)" })
 map({ "n", "v" }, "<leader>sw", function() Snacks.picker.grep_word() end, { desc = "[S]earch current [W]ord" })
 map("n", "<leader>sg", function() Snacks.picker.grep() end, { desc = "[S]earch [G]rep" })
 map("n", "<leader>sd", function() Snacks.picker.diagnostics() end, { desc = "[S]earch [D]iagnostics" })
