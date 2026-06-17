@@ -31,6 +31,7 @@ flatpak
 foot
 fuzzel
 fzf
+gamemode
 gdb
 ghostty
 gimp
@@ -69,6 +70,7 @@ kwallet-pam
 kwalletmanager
 lazygit
 less
+lib32-gamemode
 libpulse
 linux
 linux-firmware

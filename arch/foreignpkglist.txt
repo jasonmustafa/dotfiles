@@ -16,6 +16,7 @@ paru
 paru-debug
 peaclock
 pokeget
+proton-ge-custom-bin
 pwvucontrol
 sesh-bin
 soulver-cpp-git
