@@ -12,5 +12,7 @@
     "command": "~/.claude/statusline.sh"
   },
   "enabledPlugins": {},
-  "effortLevel": "high"
+  "effortLevel": "high",
+  "editorMode": "vim",
+  "preferredNotifChannel": "kitty"
 }
