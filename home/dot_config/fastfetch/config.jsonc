@@ -1,0 +1,57 @@
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    "display": {
+        "separator": " ",
+    },
+    "logo": {
+       "type": "command-raw",
+       "source": "pokeget random --hide-name"
+    },
+    "modules": [
+       // "break",
+       // "break",
+       {
+            "type": "title",
+            "keyWidth": 10
+        },
+        "break",
+        {
+            "type": "os",
+            "key": " ",
+        },
+        {
+            "type": "kernel",
+            "key": " ",
+        },
+        {
+            "type": "packages",
+            "format": "{} (pacman)",
+            "key": " ",
+        },
+        {
+            "type": "shell",
+            "key": " ",
+        },
+        {
+            "type": "terminal",
+            "key": " ",
+        },
+        {
+            "type": "wm",
+            "key": " ",
+        },
+        {
+            "type": "uptime",
+            "key": " ",
+        },
+        {
+            "type": "media",
+            "key": "󰝚 ",
+        },
+        "break",
+        "colors",
+        "break",
+        "break",
+    ]
+}
+
