@@ -4,7 +4,7 @@ vim.pack.add({
 
 require("cord").setup({
 	variables = { filename = "a file", workspace = "workspace" },
-	text = { editing = "Editing a ${filetype} file", workspace = "" },
+	text = { editing = "Editing a file", workspace = "" },
 	display = { theme = "catppuccin" },
 })
 
