@@ -34,8 +34,8 @@ COMPLETIONS="/usr/share/zsh/site-functions"
 POWERLEVEL10K="/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme"
 
 AUTOSUGGESTIONS="/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
-FAST_SYNTAX_HIGHLIGHTING="/usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
-FZF_TAB="$HOME/repos/fzf-tab/fzf-tab.plugin.zsh"
+SYNTAX_HIGHLIGHTING="/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh"
+FZF_TAB="$HOME/src/fzf-tab/fzf-tab.plugin.zsh"
 
 # let hidden files be matched without specifying .
 setopt GLOB_DOTS
@@ -51,6 +51,7 @@ setopt HIST_FIND_NO_DUPS
 ### EXPORT ###
 
 export EDITOR="nvim"
+export SUDO_EDITOR="nvim"
 
 # fzf Catppuccin Mocha theme
 export FZF_DEFAULT_OPTS=" \
@@ -74,7 +75,7 @@ header:#94e2d5,border:#6c7086"
 export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
 
 # TODO: set back to default, creates generic config.toml files
-export CODEX_HOME="$HOME/.agents"
+# export CODEX_HOME="$HOME/.agents"
 export MANPAGER="nvim +Man!"
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/rgrc"
 
@@ -92,7 +93,7 @@ alias lla='ll -la'
 alias n='nvim'
 
 alias rm='trash'
-
+alias s='kitty +kitten ssh'
 alias peaclock="peaclock --config-dir ~/.config/peaclock"
 
 ### COMPLETIONS ###
@@ -138,11 +139,8 @@ eval "$(zoxide init zsh)"
 [[ -f $FAST_SYNTAX_HIGHLIGHTING ]] && source $FAST_SYNTAX_HIGHLIGHTING
 
 # Mise
-# eval "$(mise activate zsh)"
+eval "$(mise activate zsh)"
 
-# # Node
-# source /usr/share/nvm/init-nvm.sh
-#
 # # Python
 # eval "$(uv generate-shell-completion zsh)"
 
