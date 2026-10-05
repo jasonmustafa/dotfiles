@@ -24,7 +24,7 @@ files = []
 # Optional session examples. XWayland support is enabled by default.
 # https://docs.noctalia.dev/umbriel/configuration/#general
 [general]
-autostart = ["noctalia"]
+autostart = ["noctalia", "vicinae server"]
 xwayland = true
 
 # ==============================================================================
@@ -44,6 +44,7 @@ xwayland = true
 [output.DP-3]
 mode = "2560x1440@165"
 position = [0, 560]
+tearing = true
 
 # Gigabyte
 [output.DP-4]
@@ -55,6 +56,7 @@ workspace_axis = "horizontal"
 # ==============================================================================
 # Appearance
 [appearance]
+prefer_no_csd = true
 border_width = 4
 corner_radius = 12
 # Blur uses a smaller radius than the built-in default.
@@ -97,20 +99,27 @@ theme = "catppuccin-mocha-light-cursors"
 
 # Applications and session
 "Mod+Return" = "spawn:kitty"
-"Mod+Space" = "spawn:noctalia msg panel-toggle launcher"
+"Mod+Space" = "spawn:vicinae toggle"
+
+"Mod+Semicolon" = "spawn: vicinae vicinae://launch/core/search-emojis"
+"Mod+S" = "spawn:noctalia msg panel-toggle control-center"
 "Mod+Q" = "window-close"
+"Mod+Alt+L" = "spawn:noctalia msg session lock"
 "Mod+Escape" = "session-quit"
 "Mod+Shift+Escape" = { action = "shortcuts-inhibit-toggle", allow_when_inhibited = true, repeat = false }
 
+# Microphone mute toggle
+"Alt+M" = { action = "spawn:wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle", repeat = false }
+
 # Focus and movement
-"Mod+Left" = "window-focus-left"
-"Mod+Down" = "window-focus-down"
-"Mod+Up" = "window-focus-up"
-"Mod+Right" = "window-focus-right"
-"Mod+H" = "window-focus-left"
-"Mod+J" = "window-focus-down"
-"Mod+K" = "window-focus-up"
-"Mod+L" = "window-focus-right"
+"Mod+Left" = "window-focus-or-output-left"
+"Mod+Down" = "window-focus-or-output-down"
+"Mod+Up" = "window-focus-or-output-up"
+"Mod+Right" = "window-focus-or-output-right"
+"Mod+H" = "window-focus-or-output-left"
+"Mod+J" = "window-focus-or-output-down"
+"Mod+K" = "window-focus-or-output-up"
+"Mod+L" = "window-focus-or-output-right"
 "Mod+F1" = "window-focus-next"
 "Mod+Shift+Left" = "column-move-left"
 "Mod+Shift+Down" = "window-move-down"
@@ -122,8 +131,8 @@ theme = "catppuccin-mocha-light-cursors"
 "Mod+Shift+T" = "window-focus-switch-floating"
 "Mod+P" = "window-toggle-pinned"
 "Mod+M" = "window-toggle-maximize-to-edges"
-"Mod+F" = "window-toggle-fullscreen"
-"Mod+Ctrl+F" = "window-toggle-maximize"
+"Mod+F" = "window-toggle-maximize"
+"Mod+Ctrl+F" = "window-toggle-fullscreen"
 "Mod+R" = "window-cycle-primary-extent"
 "Mod+Shift+R" = "window-cycle-primary-extent-back"
 "Mod+Comma" = "window-consume-left"
@@ -158,8 +167,11 @@ theme = "catppuccin-mocha-light-cursors"
 "Mod+Ctrl+Space" = "window-restore-from-scratchpad"
 "Mod+Tab" = "scratchpad-focus-next"
 
-"Ctrl+Shift+1" = "spawn:noctalia msg screenshot-region"
-"Ctrl+Shift+2" = "spawn:noctalia msg screenshot-fullscreen"
+# "Ctrl+Shift+1" = "spawn:noctalia msg screenshot-region"
+# "Ctrl+Shift+2" = "spawn:noctalia msg screenshot-fullscreen"
+
+"Print" = "spawn:noctalia msg screenshot-region"
+"Mod+Print" = "spawn:noctalia msg screenshot-fullscreen"
 
 # ==============================================================================
 # Layout
@@ -234,6 +246,12 @@ default_workspace = "GAMES"
 # ==============================================================================
 # Layer rules
 # https://docs.noctalia.dev/umbriel/layer-rules/
+
+[[layer_rule]]
+match.namespace = "^vicinae$"
+blur = true
+blur_optimized = false
+
 [[layer_rule]]
 match.namespace = "^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd|desktop-widget-[^\"]*)$"
 blur = true
