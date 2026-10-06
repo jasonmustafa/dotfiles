@@ -33,6 +33,10 @@ xwayland = true
 # Outputs are machine-specific. Run `umbriel outputs` to find names and modes.
 # https://docs.noctalia.dev/umbriel/outputs/
 #
+
+[output.eDP-2]
+scale = 1.5
+
 # [output.DP-1]
 # mode = "2560x1440@144"
 # position = [0, 0]
@@ -41,35 +45,35 @@ xwayland = true
 # hdr = "auto"
 
 # LG
-[output.DP-3]
-mode = "2560x1440@165"
-position = [0, 560]
-tearing = true
-
+# [output.DP-3]
+# mode = "2560x1440@165"
+# position = [0, 560]
+# tearing = true
+#
 # Gigabyte
-[output.DP-4]
-mode = "2560x1440@165"
-transform = "270"
-position=[2560, 0]
-workspace_axis = "horizontal"
+# [output.DP-4]
+# mode = "2560x1440@165"
+# transform = "270"
+# position = [2560, 0]
+# workspace_axis = "horizontal"
 
 # ==============================================================================
 # Appearance
 [appearance]
 prefer_no_csd = true
-border_width = 4
+border_width = 6
 corner_radius = 12
 # Blur uses a smaller radius than the built-in default.
 # https://docs.noctalia.dev/umbriel/appearance/
 [appearance.blur]
 radius = 3
 
-# Choose the background color shown if the lock screen takes too long to appear.
-# [colors]
-# backdrop = "#000000FF"
+# Color shown while inserting a window into the layout.
+[colors]
+insert_hint = "#B4BEFEFF"
 
 [colors.border]
-focused = "#B4BEFE"
+focused = "#B4BEFEFF"
 
 [colors.overview]
 badge = "#B4BEFE"
@@ -85,6 +89,9 @@ repeat_delay = 200
 
 [input.mouse]
 accel_profile = "flat"
+
+[input.touchpad]
+natural_scroll = true
 
 [input.cursor]
 theme = "catppuccin-mocha-light-cursors"
@@ -108,23 +115,49 @@ theme = "catppuccin-mocha-light-cursors"
 "Mod+Escape" = "session-quit"
 "Mod+Shift+Escape" = { action = "shortcuts-inhibit-toggle", allow_when_inhibited = true, repeat = false }
 
-# Microphone mute toggle
-"Alt+M" = { action = "spawn:wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle", repeat = false }
+# Media and Brightness
+"XF86AudioRaiseVolume" = "spawn:noctalia msg volume-up"
+"XF86AudioLowerVolume" = "spawn:noctalia msg volume-down"
+"XF86AudioMute" = { action = "spawn:noctalia msg volume-mute", repeat = false }
+"XF86AudioPlay" = "spawn:noctalia msg media toggle"
+"XF86AudioNext" = "spawn:noctalia msg media next"
+"XF86AudioPrev" = "spawn:noctalia msg media previous"
+"XF86MonBrightnessUp" = "spawn:noctalia msg brightness-up"
+"XF86MonBrightnessDown" = "spawn:noctalia msg brightness-down"
 
-# Focus and movement
+# Microphone mute toggle
+"Alt+M" = { action = "spawn:noctalia msg mic-mute", repeat = false }
+
+# Focus
+
 "Mod+Left" = "window-focus-or-output-left"
-"Mod+Down" = "window-focus-or-output-down"
-"Mod+Up" = "window-focus-or-output-up"
+"Mod+Down" = "window-focus-or-workspace-down"
+"Mod+Up" = "window-focus-or-workspace-up"
 "Mod+Right" = "window-focus-or-output-right"
+
 "Mod+H" = "window-focus-or-output-left"
-"Mod+J" = "window-focus-or-output-down"
-"Mod+K" = "window-focus-or-output-up"
+"Mod+J" = "window-focus-or-workspace-down"
+"Mod+K" = "window-focus-or-workspace-up"
 "Mod+L" = "window-focus-or-output-right"
+
 "Mod+F1" = "window-focus-next"
-"Mod+Shift+Left" = "column-move-left"
-"Mod+Shift+Down" = "window-move-down"
-"Mod+Shift+Up" = "window-move-up"
-"Mod+Shift+Right" = "column-move-right"
+
+# Movement
+
+"Mod+Shift+Left" = "window-move-or-output-left"
+"Mod+Shift+Down" = "window-move-or-workspace-down"
+"Mod+Shift+Up" = "window-move-or-workspace-up"
+"Mod+Shift+Right" = "window-move-or-output-right"
+
+"Mod+Shift+H" = "window-move-or-output-left"
+"Mod+Shift+J" = "window-move-or-workspace-down"
+"Mod+Shift+K" = "window-move-or-workspace-up"
+"Mod+Shift+L" = "window-move-or-output-right"
+
+# Workspace movement
+
+"Mod+Ctrl+J" = "workspace-move-down"
+"Mod+Ctrl+K" = "workspace-move-up"
 
 # Window state and layout
 "Mod+T" = "window-toggle-floating"
@@ -135,6 +168,8 @@ theme = "catppuccin-mocha-light-cursors"
 "Mod+Ctrl+F" = "window-toggle-fullscreen"
 "Mod+R" = "window-cycle-primary-extent"
 "Mod+Shift+R" = "window-cycle-primary-extent-back"
+"Mod+Minus" = "window-modify-primary-extent:-0.1"
+"Mod+Equal" = "window-modify-primary-extent:0.1"
 "Mod+Comma" = "window-consume-left"
 "Mod+Period" = "window-consume-right"
 "Mod+WheelUp" = "window-focus-left"
@@ -188,6 +223,9 @@ default_extent_fraction = 0.5
 [layout.struts]
 left = 32
 right = 32
+
+[workspaces]
+empty_above = true
 
 # Workspaces
 [[workspace]]
